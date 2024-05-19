@@ -1,4 +1,5 @@
 // Falta Pedidos, Cozinha, Caixa, "Garçom?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+// Tem que Usar Herança (ja usado), Polimorfismo (falta), abstração (falta), interface (falta)
 
 package com.artur;
 
