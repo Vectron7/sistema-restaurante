@@ -1,3 +1,5 @@
+// Falta Pedidos, Cozinha, Caixa, "Garçom?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+
 package com.artur;
 
 import java.util.Scanner;
