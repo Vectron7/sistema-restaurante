@@ -1,6 +1,5 @@
 package com.artur.Estabelecimento;
 
-import com.artur.Pessoas.Cliente;
 import java.util.ArrayList;
 
 public class Reservas{
