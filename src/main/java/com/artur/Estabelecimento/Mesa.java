@@ -1,6 +1,6 @@
 package com.artur.Estabelecimento;
 
-public class Mesa {
+public class Mesa{
 
     private int numero;
     private int capacidade;

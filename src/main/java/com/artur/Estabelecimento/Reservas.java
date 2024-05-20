@@ -5,14 +5,13 @@ import java.util.ArrayList;
 public class Reservas{
     
 
-    private static int count = 1;
     private int idReserva;
     private int numMesa;
     private String telefoneCliente;
     private String nomeCliente;
     private String dataReserva;
     private String horaReserva;
-    ArrayList<Reservas> listaReservas = new ArrayList<>();
+    
 
     public Reservas(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa) {
         this.dataReserva = dataReserva;
@@ -20,16 +19,10 @@ public class Reservas{
         this.telefoneCliente = telefoneCliente;
         this.nomeCliente = nomeCliente;
         this.numMesa = numMesa;
-        idReserva = count++;
+
     }
     
-    public void fazerReserva(Reservas reserva){
-        
-        listaReservas.add(reserva);
-        
-    }
-    
-    public void listarReservas(){
+    public void listarReservas(ArrayList<Reservas> listaReservas){
         
         for (Reservas reserva : listaReservas) {
             System.out.println("ID: " + reserva.getIdReserva() + " | Num. Mesa: "+numMesa+" | Nome: " + reserva.getNomeCliente() + " | Telefone: " + reserva.getTelefoneCliente() + " | Data e Hora: " + reserva.getDataReserva() + " " + reserva.getHoraReserva());
@@ -82,6 +75,10 @@ public class Reservas{
     public void setNumMesa(int numMesa) {
         this.numMesa = numMesa;
     }
+
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
+	}
 
     
 

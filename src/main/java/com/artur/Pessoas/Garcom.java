@@ -1,21 +1,24 @@
 package com.artur.Pessoas;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 public class Garcom extends Pessoas{
 
     private float salario;
     private String dataContratacao;
-    private UUID idGarcom;
+    private int idGarcom;
 
-    public Garcom(String nome, String endereco, String telefone, float salario, String dataContratacao) {
-        super(nome, endereco);
+    public Garcom(String nome, float salario, String dataContratacao) {
+    	super(nome);
         this.salario = salario;
         this.dataContratacao = dataContratacao;
-        idGarcom = UUID.randomUUID();
+    }
+    
+    public void listar(ArrayList<?> lista) {
+    	
     }
 
-    public float getSalario() {
+	public float getSalario() {
         return salario;
     }
 
@@ -23,7 +26,7 @@ public class Garcom extends Pessoas{
         return dataContratacao;
     }
 
-    public UUID getIdGarcom() {
+    public int getIdGarcom() {
         return idGarcom;
     }
 
@@ -33,6 +36,15 @@ public class Garcom extends Pessoas{
 
     public void setDataContratacao(String dataContratacao) {
         this.dataContratacao = dataContratacao;
-    } 
+    }
+
+	public void setIdGarcom(int idGarcom) {
+		this.idGarcom = idGarcom;
+	}
+ 
+	
+	
+    
+    
 
 }
