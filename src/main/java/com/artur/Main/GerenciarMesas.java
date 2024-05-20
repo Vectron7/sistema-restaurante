@@ -1,6 +1,8 @@
-package com.artur.Estabelecimento;
+package com.artur.Main;
 
 import java.util.ArrayList;
+
+import com.artur.Estabelecimento.Mesa;
 
 public class GerenciarMesas {
 

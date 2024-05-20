@@ -1,15 +1,18 @@
-// Falta Pedidos, Cozinha, Caixa, "Garçom?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+// Faltam fazer: Pedidos, Cozinha, Caixa, "Garçom?", Cardapio (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
 // Tem que Usar Herança (ja usado), Polimorfismo (falta), abstração (Ja Usado), interface (falta)
+
+// Fazer um menu para o cardapio dentro do menu pedidos (Cardapio ja esta pronto e com uma função para imprimi-lo).
+// Colocar IDs em cada item do cardapio para a seleção do item (Verificar os IDs das outras classes para ver como foi implementado).
+// Criar logica para quantidade de items do cardapio que vai ser pedido (algo como quantidade * preço) e criar uma lista separada
+// para os itens que foram pedidos/comprados (como uma comanda) com o preço total.
 
 package com.artur.Main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.artur.Estabelecimento.Reservas;
 import com.artur.Pessoas.Cliente;
 import com.artur.Estabelecimento.Mesa;
-import com.artur.Estabelecimento.GerenciarMesas;
 
 public class Main {
 
@@ -26,10 +29,13 @@ public class Main {
 		Cliente cliente = null;
 		Reservas reserva = null;
 		GerenciarMesas mesa = new GerenciarMesas();
+		Cardapio cardapio = new Cardapio();
 
 		do {
-			System.out.println("========== MENU ==========");
+			System.out.println("========== RESTAURANTE ==========");
 			System.out.println("1 - Recepcao");
+			System.out.println("2 - Cozinha");
+			System.out.println("3 - Pedido");
 			System.out.println("0 - SAIR");
 			System.out.println("==========================");
 
@@ -260,6 +266,15 @@ public class Main {
 						System.out.println("Opcao inserida invalida. Tente Novamente.");
 					}
 				} while (op2 != 0);
+				break;
+			}
+			case 2:{
+				System.out.println("========== Cozinha ==========");
+				break;
+			}
+			case 3:{
+				System.out.println("========== Pedidos ==========");
+
 				break;
 			}
 			case 0:

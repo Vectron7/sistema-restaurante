@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Pessoas {
 
-	private String nome;
+	protected String nome;
     
     public Pessoas(String nome) {
 		this.nome = nome;

@@ -1,10 +1,9 @@
-package com.artur.Estabelecimento;
+package com.artur.Main;
 
 import java.util.ArrayList;
 
 public class Reservas{
     
-
     private int idReserva;
     private int numMesa;
     private String telefoneCliente;
