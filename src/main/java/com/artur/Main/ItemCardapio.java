@@ -5,8 +5,10 @@ public class ItemCardapio{
 	private String nome;
 	private String tamanho;
 	private String descricao;
-	private double preco;
 	private String categoria;
+	private double preco;
+	private int idItem;
+	
 	
 	public ItemCardapio(String nome, String tamanho, String descricao, double preco) {
 		this.nome = nome;
@@ -16,18 +18,23 @@ public class ItemCardapio{
 		this.categoria = definirCategoria(nome);
 	}
 	
+	public ItemCardapio() {
+		super();
+	}
+
+
 	private String definirCategoria(String nome) {
 		
 		if (nome.contains("Bife") || nome.contains("Frango") || nome.contains("Spaghetti")) {
             return "Pratos Principais";
         } else if (nome.contains("Arroz") || nome.contains("Batata") || nome.contains("Salada")) {
             return "Acompanhamentos";
-        } else if (nome.contains("Refrigerante") || nome.contains("Suco") || nome.contains("Água")) {
+        } else if (nome.contains("Refrigerante") || nome.contains("Suco") || nome.contains("Agua")) {
             return "Bebidas";
         } else if (nome.contains("Mousse") || nome.contains("Pudim") || nome.contains("Sorvete")) {
             return "Sobremesas";
         } else {
-            return "Outros";
+            return "Outros/Adicionados";
         }
 		
 	}
@@ -76,6 +83,14 @@ public class ItemCardapio{
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public int getIdItem() {
+		return idItem;
+	}
+
+	public void setIdItem(int idItem) {
+		this.idItem = idItem;
 	}
 	
 	
