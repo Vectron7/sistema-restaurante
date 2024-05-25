@@ -10,37 +10,19 @@ package com.artur.Main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 
 import com.artur.Pessoas.Cliente;
 import com.artur.Estabelecimento.Mesa;
 
 
 public class Main {
-
-	public static void imprimirArray(ArrayList<?> lista) {
-		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-		symbols.setDecimalSeparator('.');
-		DecimalFormat df = new DecimalFormat("0.00", symbols);
-
-		for (Object item : lista) {
-			if (item instanceof ItemCardapio) {
-				ItemCardapio itemCardapio = (ItemCardapio) item;
-				System.out.println("ID: " + itemCardapio.getIdItem() + " | " + itemCardapio.getNome() + ": " + itemCardapio.getDescricao());
-				System.out.println("Tamanho: " + itemCardapio.getTamanho());
-				System.out.println("Preço: R$ " + df.format(itemCardapio.getPreco()) + "\n");
-			} else {
-				System.out.println(item.toString()); // Se não for um ItemCardapio, apenas imprime o objeto
-			}
-		}
-	}
-
+	
 	public static void main(String[] args) {
 
 		int op1, op2, op3, op4, op5, op6, op7, op8, op9, op10;
 		int ultimoIdCliente = 0;
 		int ultimoIdReserva = 0;
+		
 
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
 		ArrayList<Reservas> listaReservas = new ArrayList<>();
@@ -56,7 +38,8 @@ public class Main {
 			System.out.println("========== RESTAURANTE ==========");
 			System.out.println("1 - Recepcao");
 			System.out.println("2 - Cozinha");
-			System.out.println("3 - Pedido");
+			System.out.println("3 - Cardapio");
+			System.out.println("4 - Pedido");
 			System.out.println("0 - SAIR");
 			System.out.println("==========================");
 
@@ -299,324 +282,144 @@ public class Main {
 			}
 			case 3: {
 				do {
+					System.out.println("========== Cardapio ==========");
+					System.out.println("1 - Mostrar Cardapio");
+					System.out.println("2 - Adicionar Item");
+					System.out.println("3 - Remover Item");
+					System.out.println("0 - VOLTAR");
+					System.out.println("==============================");
+					op8 = sc.nextInt();
+					sc.nextLine();
+					switch (op8) {
+					case 1: {
+						cardapio.imprimirCardapio();
+						break;
+					}
+					case 2: {
+						do {
+							System.out.println("\n========== Adicionar Item ==========");
+							System.out.println("Escolha a categoria do item.");
+							System.out.println("1 - Pratos Principais");
+							System.out.println("2 - Acompanhamentos");
+							System.out.println("3 - Bebidas");
+							System.out.println("4 - Sobremesas");
+							System.out.println("5 - Outros");
+							System.out.println("0 - VOLTAR");
+							System.out.println("====================================");
+							op9 = sc.nextInt();
+							sc.nextLine();
+							
+							if(op9 == 0) {
+								System.out.println("Voltando...");
+								break;
+							}
+							
+							System.out.println("Insira um nome para o item.");
+							String nome = sc.nextLine();
+							System.out.println("Insira um tamanho para o item");
+							String tamanho = sc.nextLine();
+							System.out.println("Insira uma descricao para o item");
+							String descricao = sc.nextLine();
+							System.out.println("Insira um preco para o item");
+							double preco = sc.nextDouble();
+							
+							if(op9 == 1) {
+								cardapio.adicionarItem("Pratos Principais", new ItemCardapio(nome, tamanho, descricao, preco));
+								System.out.println("Item adicionado ao cardapio com sucesso.");
+							} else if(op9 == 2) {
+								cardapio.adicionarItem("Acompanhamentos", new ItemCardapio(nome, tamanho, descricao, preco));
+								System.out.println("Item adicionado ao cardapio com sucesso.");
+							} else if(op9 == 3) {
+								cardapio.adicionarItem("Bebidas", new ItemCardapio(nome, tamanho, descricao, preco));
+								System.out.println("Item adicionado ao cardapio com sucesso.");
+							} else if(op9 == 4) {
+								cardapio.adicionarItem("Sobremesas", new ItemCardapio(nome, tamanho, descricao, preco));
+								System.out.println("Item adicionado ao cardapio com sucesso.");
+							} else if(op9 == 5) {
+								cardapio.adicionarItem("Outros", new ItemCardapio(nome, tamanho, descricao, preco));
+								System.out.println("Item adicionado ao cardapio com sucesso.");
+							} else {
+								System.out.println("Opcao inserida invalida. Tente Novamente.");
+							}
+						} while (op9!=0);
+						break;
+					}
+					case 3: {
+						System.out.println("========== Remover Item ==========");
+						System.out.println("Escolha a categoria do item.");
+						System.out.println("1 - Pratos Principais");
+						System.out.println("2 - Acompanhamentos");
+						System.out.println("3 - Bebidas");
+						System.out.println("4 - Sobremesas");
+						System.out.println("5 - Outros");
+						System.out.println("0 - VOLTAR");
+						System.out.println("===================================");
+
+						op10 = sc.nextInt();
+						sc.nextLine();
+						
+						if(op10 == 0) {
+							System.out.println("Voltando...");
+							break;
+						}
+						
+						if(op10 == 1) {
+							cardapio.imprimirItensCategoria("Pratos Principais", cardapio.getCategorias());
+							System.out.println("\nInsira o ID do Item");
+			                int canIdItem = sc.nextInt();
+				            sc.nextLine();
+				            cardapio.removerItem("Pratos Principais", canIdItem);
+						} else if(op10 == 2) {
+							cardapio.imprimirItensCategoria("Acompanhamentos", cardapio.getCategorias());
+							System.out.println("\nInsira o ID do Item");
+			                int canIdItem = sc.nextInt();
+				            sc.nextLine();
+				            cardapio.removerItem("Acompanhamentos", canIdItem);
+						} else if(op10 == 3) {
+							cardapio.imprimirItensCategoria("Bebidas", cardapio.getCategorias());
+							System.out.println("\nInsira o ID do Item");
+			                int canIdItem = sc.nextInt();
+				            sc.nextLine();
+				            cardapio.removerItem("Bebidas", canIdItem);
+						} else if(op10 == 4) {
+							cardapio.imprimirItensCategoria("Sobremesas", cardapio.getCategorias());
+							System.out.println("\nInsira o ID do Item");
+			                int canIdItem = sc.nextInt();
+				            sc.nextLine();
+				            cardapio.removerItem("Sobremesas", canIdItem);
+						} else if(op10 == 5) {
+							cardapio.imprimirItensCategoria("Outros", cardapio.getCategorias());
+							System.out.println("\nInsira o ID do Item");
+			                int canIdItem = sc.nextInt();
+				            sc.nextLine();
+				            cardapio.removerItem("Outros", canIdItem);
+						} else {
+							System.out.println("Opcao inserida invalida. Tente Novamente.");
+						}
+
+						break;
+					}
+					case 0:
+						System.out.println("Voltando...");
+						break;
+					default:
+						System.out.println("Opcao inserida invalida. Tente Novamente.");
+					}
+				} while (op8 != 0);
+				break;
+			}
+			case 4: {
+				do {
 					System.out.println("========== Pedidos ==========");
-					System.out.println("1 - Cardapio");
+					System.out.println("1 - Pedidos Realizados");
 					System.out.println("2 - Fazer Pedido");
-					System.out.println("3 - Pedidos Realizados");
+					System.out.println("2 - Cancelar Pedido");
 					System.out.println("0 - VOLTAR");
 					System.out.println("=============================");
 					op7 = sc.nextInt();
 					sc.nextLine();
 					switch (op7) {
 					case 1: {
-						do {
-							System.out.println("========== Cardapio ==========");
-							System.out.println("1 - Mostrar Cardapio");
-							System.out.println("2 - Adicionar Item");
-							System.out.println("3 - Remover Item");
-							System.out.println("0 - VOLTAR");
-							System.out.println("==============================");
-							op8 = sc.nextInt();
-							sc.nextLine();
-							switch (op8) {
-							case 1: {
-								cardapio.imprimirCardapio();
-								break;
-							}
-							case 2: {
-								do {
-									System.out.println("========== Adicionar Item ==========\n");
-									System.out.println("Escolha a categoria do item.");
-									System.out.println("1 - Pratos Principais");
-									System.out.println("2 - Acompanhamentos");
-									System.out.println("3 - Bebidas");
-									System.out.println("4 - Sobremesas");
-									System.out.println("5 - Outros");
-									System.out.println("0 - VOLTAR");
-									System.out.println("====================================");
-									op9 = sc.nextInt();
-									sc.nextLine();
-									switch (op9) {
-									case 1: {
-										System.out.println("Prato Principal\n");
-										System.out.println("Insira um nome para o item.");
-										String nomePP = sc.nextLine();
-										System.out.println("Insira um tamanho para o item");
-										String tamanhoPP = sc.nextLine();
-										System.out.println("Insira uma descricao para o item");
-										String descricaoPP = sc.nextLine();
-										System.out.println("Insira um preco para o item");
-										double precoPP = sc.nextDouble();
-
-										cardapio.adicionarItemPP(
-												new ItemCardapio(nomePP, tamanhoPP, descricaoPP, precoPP));
-
-										break;
-									}
-									case 2: {
-										System.out.println("Acompanhamento\n");
-										System.out.println("Insira um nome para o item.");
-										String nomeA = sc.nextLine();
-										System.out.println("Insira um tamanho para o item");
-										String tamanhoA = sc.nextLine();
-										System.out.println("Insira uma descricao para o item");
-										String descricaoA = sc.nextLine();
-										System.out.println("Insira um preco para o item");
-										double precoA = sc.nextDouble();
-
-										cardapio.adicionarItemA(new ItemCardapio(nomeA, tamanhoA, descricaoA, precoA));
-										break;
-									}
-									case 3: {
-										System.out.println("Bebida\n");
-										System.out.println("Insira um nome para o item.");
-										String nomeB = sc.nextLine();
-										System.out.println("Insira um tamanho para o item");
-										String tamanhoB = sc.nextLine();
-										System.out.println("Insira uma descricao para o item");
-										String descricaoB = sc.nextLine();
-										System.out.println("Insira um preco para o item");
-										double precoB = sc.nextDouble();
-
-										cardapio.adicionarItemB(new ItemCardapio(nomeB, tamanhoB, descricaoB, precoB));
-										break;
-									}
-									case 4: {
-										System.out.println("Sobremesa\n");
-										System.out.println("Insira um nome para o item.");
-										String nomeS = sc.nextLine();
-										System.out.println("Insira um tamanho para o item");
-										String tamanhoS = sc.nextLine();
-										System.out.println("Insira uma descricao para o item");
-										String descricaoS = sc.nextLine();
-										System.out.println("Insira um preco para o item");
-										double precoS = sc.nextDouble();
-
-										cardapio.adicionarItemS(new ItemCardapio(nomeS, tamanhoS, descricaoS, precoS));
-										break;
-									}
-									case 5: {
-										System.out.println("Sobremesa\n");
-										System.out.println("Insira um nome para o item.");
-										String nomeO = sc.nextLine();
-										System.out.println("Insira um tamanho para o item");
-										String tamanhoO = sc.nextLine();
-										System.out.println("Insira uma descricao para o item");
-										String descricaoO = sc.nextLine();
-										System.out.println("Insira um preco para o item");
-										double precoO = sc.nextDouble();
-
-										cardapio.adicionarItemO(new ItemCardapio(nomeO, tamanhoO, descricaoO, precoO));
-										break;
-									}
-									case 0:
-										System.out.println("Voltando...");
-										break;
-									default:
-										System.out.println("Opcao inserida invalida. Tente Novamente.");
-									}
-									break;
-								} while (op9!=0);
-							}
-							case 3: {
-								System.out.println("========== Remover Item ==========");
-								System.out.println("Escolha a categoria do item.");
-								System.out.println("1 - Pratos Principais");
-								System.out.println("2 - Acompanhamentos");
-								System.out.println("3 - Bebidas");
-								System.out.println("4 - Sobremesas");
-								System.out.println("5 - Outros");
-								System.out.println("0 - VOLTAR");
-								System.out.println("===================================");
-
-								op10 = sc.nextInt();
-								sc.nextLine();
-
-								switch (op10) {
-								case 1: {
-						            System.out.println("Pratos Principais\n");
-						            if(cardapio.getItensPP() != null) {
-						                imprimirArray(cardapio.getItensPP());
-						            } else {
-						                System.out.println("Lista Vazia");
-						                break;
-						            }
-
-						            System.out.println("\nInsira o ID do Item");
-						            int canIdItemPP = sc.nextInt();
-						            sc.nextLine();
-
-						            ItemCardapio itemRemovido = null;
-						            for (ItemCardapio item : cardapio.getItensPP()) {
-						                if (item.getIdItem() == canIdItemPP) {
-						                    itemRemovido = item;
-						                    break;
-						                }
-						            }
-
-						            if (itemRemovido != null) {
-						                cardapio.getItensPP().remove(itemRemovido);
-						                System.out.println("Item removido com sucesso.");
-
-						                for (int i = 0; i < cardapio.getItensPP().size(); i++) {
-						                    cardapio.getItensPP().get(i).setIdItem(i + 1);
-						                }
-						            } else {
-						                System.out.println("ID do Item não encontrado.");
-						            }
-
-						            break;
-						        }
-								case 2: {
-									System.out.println("Acompanhamentos\n");
-									if(cardapio.getItensA() != null) {
-										imprimirArray(cardapio.getItensA());
-									} else {
-										System.out.println("Lista Vazia");
-										break;
-									}
-									
-									System.out.println("\nInsira o ID do Item");
-									int canIdItemA = sc.nextInt();
-									sc.nextLine();
-
-									ItemCardapio itemRemovido = null;
-						            for (ItemCardapio item : cardapio.getItensA()) {
-						                if (item.getIdItem() == canIdItemA) {
-						                    itemRemovido = item;
-						                    break;
-						                }
-						            }
-
-						            if (itemRemovido != null) {
-						                cardapio.getItensA().remove(itemRemovido);
-						                System.out.println("Item removido com sucesso.");
-
-						                for (int i = 0; i < cardapio.getItensA().size(); i++) {
-						                    cardapio.getItensA().get(i).setIdItem(i + 1);
-						                }
-						            } else {
-						                System.out.println("ID do Item não encontrado.");
-						            }
-									
-									break;
-								}
-								case 3: {
-									System.out.println("Bebidas\n");
-									if(cardapio.getItensB() != null) {
-										imprimirArray(cardapio.getItensB());
-									} else {
-										System.out.println("Lista Vazia");
-										break;
-									}
-									
-									System.out.println("\nInsira o ID do Item");
-									int canIdItemB = sc.nextInt();
-									sc.nextLine();
-
-									ItemCardapio itemRemovido = null;
-						            for (ItemCardapio item : cardapio.getItensB()) {
-						                if (item.getIdItem() == canIdItemB) {
-						                    itemRemovido = item;
-						                    break;
-						                }
-						            }
-
-						            if (itemRemovido != null) {
-						                cardapio.getItensB().remove(itemRemovido);
-						                System.out.println("Item removido com sucesso.");
-
-						                for (int i = 0; i < cardapio.getItensB().size(); i++) {
-						                    cardapio.getItensB().get(i).setIdItem(i + 1);
-						                }
-						            } else {
-						                System.out.println("ID do Item não encontrado.");
-						            }
-									
-									break;
-								}
-								case 4: {
-									System.out.println("Sobremesas\n");
-									if(cardapio.getItensS() != null) {
-										imprimirArray(cardapio.getItensS());
-									} else {
-										System.out.println("Lista Vazia");
-										break;
-									}
-									System.out.println("\nInsira o ID do Item");
-									int canIdItemS = sc.nextInt();
-									sc.nextLine();
-
-									ItemCardapio itemRemovido = null;
-						            for (ItemCardapio item : cardapio.getItensS()) {
-						                if (item.getIdItem() == canIdItemS) {
-						                    itemRemovido = item;
-						                    break;
-						                }
-						            }
-
-						            if (itemRemovido != null) {
-						                cardapio.getItensS().remove(itemRemovido);
-						                System.out.println("Item removido com sucesso.");
-
-						                for (int i = 0; i < cardapio.getItensS().size(); i++) {
-						                    cardapio.getItensS().get(i).setIdItem(i + 1);
-						                }
-						            } else {
-						                System.out.println("ID do Item não encontrado.");
-						            }
-						            
-									break;
-								}
-								case 5: {
-									System.out.println("Outros\n");
-									if(cardapio.getItensO() != null) {
-										imprimirArray(cardapio.getItensO());
-									} else {
-										System.out.println("Lista Vazia");
-										break;
-									}
-									System.out.println("\nInsira o ID do Item");
-									int canIdItemO = sc.nextInt();
-									sc.nextLine();
-
-									ItemCardapio itemRemovido = null;
-						            for (ItemCardapio item : cardapio.getItensO()) {
-						                if (item.getIdItem() == canIdItemO) {
-						                    itemRemovido = item;
-						                    break;
-						                }
-						            }
-
-						            if (itemRemovido != null) {
-						                cardapio.getItensO().remove(itemRemovido);
-						                System.out.println("Item removido com sucesso.");
-
-						                for (int i = 0; i < cardapio.getItensO().size(); i++) {
-						                    cardapio.getItensO().get(i).setIdItem(i + 1);
-						                }
-						            } else {
-						                System.out.println("ID do Item não encontrado.");
-						            }
-						            
-									break;
-								}
-								case 0:
-									System.out.println("Voltando...");
-									break;
-								default:
-									System.out.println("Opcao inserida invalida. Tente Novamente.");
-								}
-
-								break;
-							}
-							case 0:
-								System.out.println("Voltando...");
-								break;
-							default:
-								System.out.println("Opcao inserida invalida. Tente Novamente.");
-							}
-						} while (op8 != 0);
 						break;
 					}
 					case 2: {
