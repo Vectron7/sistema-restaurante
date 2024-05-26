@@ -2,15 +2,15 @@ package com.artur.Main;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 public class Cardapio {
 
 	
-	private Map<String, Set<ItemCardapio>> categorias;
+	private Map<String, List<ItemCardapio>> categorias;
 	
 	public Cardapio() {
 		this.categorias = new LinkedHashMap<>();
@@ -19,11 +19,11 @@ public class Cardapio {
 
 	private void gerarItems() {
 		
-		categorias.put("Pratos Principais", new LinkedHashSet<>());
-        categorias.put("Acompanhamentos", new LinkedHashSet<>());
-        categorias.put("Bebidas", new LinkedHashSet<>());
-        categorias.put("Sobremesas", new LinkedHashSet<>());
-        categorias.put("Outros", new LinkedHashSet<>());
+		categorias.put("Pratos Principais", new ArrayList<>());
+        categorias.put("Acompanhamentos", new ArrayList<>());
+        categorias.put("Bebidas", new ArrayList<>());
+        categorias.put("Sobremesas", new ArrayList<>());
+        categorias.put("Outros", new ArrayList<>());
 
 		// Pratos Principais
 		adicionarItem("Pratos Principais",new ItemCardapio("Bife a Parmegiana", "Unico", "Bife de carne bovina empanado e coberto com molho de tomate e queijo derretido. Acompanha arroz branco e batatas fritas.", 25.00));
@@ -51,11 +51,28 @@ public class Cardapio {
 
 	}
 	
+	public int obterIdMaisAltoCategoria(String categoria, List<ItemCardapio> itensCategoria) {
+	    int idMaisAlto = 0;
+	    
+	    // Verifica se a categoria existe no mapa
+	    if (itensCategoria != null) {
+	        // Percorre os itens da categoria para encontrar o ID mais alto
+	    	for (ItemCardapio item : itensCategoria) {
+		        if (item.getCategoria().equals(categoria)) {
+		            if (item.getIdItem() > idMaisAlto) {
+		                idMaisAlto = item.getIdItem();
+		            }
+		        }
 
+		    }
+	    }
+	    
+	    return idMaisAlto;
+	}
 
 	public void adicionarItem(String categoria, ItemCardapio item) {
 		
-		Set<ItemCardapio> itens = categorias.get(categoria);
+		List<ItemCardapio> itens = categorias.get(categoria);
 		
 		item.setIdItem(obterIdMaisAltoCategoria(categoria, itens) + 1);
 		
@@ -68,7 +85,7 @@ public class Cardapio {
 	public void removerItem(String categoria, int id) {
 
 	    if (categorias.containsKey(categoria)) {
-	        Set<ItemCardapio> itensCategoria = categorias.get(categoria);
+	        List<ItemCardapio> itensCategoria = categorias.get(categoria);
 	        ItemCardapio itemRemovido = null;
 	        
 	        
@@ -109,9 +126,9 @@ public class Cardapio {
 		System.out.println("==================== CARDAPIO ====================");
 		
 		
-		for (Map.Entry<String, Set<ItemCardapio>> entry : getCategorias().entrySet()) {
+		for (Map.Entry<String, List<ItemCardapio>> entry : getCategorias().entrySet()) {
 			String categoria = entry.getKey();
-			Set<ItemCardapio> itensCategoria = entry.getValue();
+			List<ItemCardapio> itensCategoria = entry.getValue();
 			
 		    System.out.println(categoria + "\n");
 		    
@@ -129,13 +146,13 @@ public class Cardapio {
 
 	}
 	
-	public void imprimirItensCategoria(String categoria, Map<String, Set<ItemCardapio>> categorias) {
+	public void imprimirItensCategoria(String categoria, Map<String, List<ItemCardapio>> categorias) {
 	    DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 	    symbols.setDecimalSeparator('.');
 	    DecimalFormat df = new DecimalFormat("0.00", symbols);
 
 	    if (categorias.containsKey(categoria)) {
-	        Set<ItemCardapio> itensCategoria = categorias.get(categoria);
+	        List<ItemCardapio> itensCategoria = categorias.get(categoria);
 	        for (ItemCardapio item : itensCategoria) {
 	            System.out.println("ID: " + item.getIdItem() + " | " + item.getNome() + ": " + item.getDescricao());
 	            System.out.println("Tamanho: " + item.getTamanho());
@@ -147,30 +164,12 @@ public class Cardapio {
 	}
 
 	
-	public int obterIdMaisAltoCategoria(String categoria, Set<ItemCardapio> itensCategoria) {
-	    int idMaisAlto = 0;
-	    
-	    // Verifica se a categoria existe no mapa
-	    if (itensCategoria != null) {
-	        // Percorre os itens da categoria para encontrar o ID mais alto
-	    	for (ItemCardapio item : itensCategoria) {
-		        if (item.getCategoria().equals(categoria)) {
-		            if (item.getIdItem() > idMaisAlto) {
-		                idMaisAlto = item.getIdItem();
-		            }
-		        }
 
-		    }
-	    }
-	    
-	    return idMaisAlto;
-	}
-
-	public Map<String, Set<ItemCardapio>> getCategorias() {
+	public Map<String, List<ItemCardapio>> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(Map<String, Set<ItemCardapio>> categorias) {
+	public void setCategorias(Map<String, List<ItemCardapio>> categorias) {
 		this.categorias = categorias;
 	}
 

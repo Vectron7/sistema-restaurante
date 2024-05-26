@@ -1,21 +1,57 @@
-// Faltam fazer: Pedidos, Cozinha, Caixa, "Garçom?", Cardapio (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+// Faltam fazer: Pedidos, Cozinha, Caixa, "Garçom?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
 // Tem que Usar Herança (ja usado), Polimorfismo (falta), abstração (Ja Usado), interface (falta)
 
-// Fazer um menu para o cardapio dentro do menu pedidos (Cardapio ja esta pronto e com uma função para imprimi-lo).
-// Colocar IDs em cada item do cardapio para a seleção do item (Verificar os IDs das outras classes para ver como foi implementado).
 // Criar logica para quantidade de items do cardapio que vai ser pedido (algo como quantidade * preço) e criar uma lista separada
 // para os itens que foram pedidos/comprados (como uma comanda) com o preço total.
+// fazer a parte de modificar uma reserva
+
+// OBS: as funções inserirInt e inserirDouble, são funções que pega a entrada do usuario verifica se é um int ou double e retorna ela, se n for ele pede
+// que o usuario insira denovo até acertar (essas funções evitam que o codigo pare se um valor diferente do que é requisitado seja inserido.
 
 package com.artur.Main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import com.artur.Pessoas.Cliente;
 import com.artur.Estabelecimento.Mesa;
 
 
 public class Main {
+	
+	public static int inserirInt(Scanner scanner) {
+        int num = 0;
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                num = scanner.nextInt();
+                valido = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Por favor, digite um numero valido");
+                scanner.next();
+            }
+        }
+
+        return num;
+    }
+	
+	public static double inserirDouble(Scanner scanner) {
+        double num = 0;
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                num = scanner.nextDouble();
+                valido = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada invalida. Por favor, digite um numero valido");
+                scanner.next();
+            }
+        }
+
+        return num;
+    }
 	
 	public static void main(String[] args) {
 
@@ -23,16 +59,14 @@ public class Main {
 		int ultimoIdCliente = 0;
 		int ultimoIdReserva = 0;
 		
-
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
 		ArrayList<Reservas> listaReservas = new ArrayList<>();
 
 		Scanner sc = new Scanner(System.in);
-		Cliente cliente = null;
-		Reservas reserva = null;
 		GerenciarMesas mesa = new GerenciarMesas();
 		Cardapio cardapio = new Cardapio();
-
+		Cliente cliente = null;
+		Reservas reserva = null;
 
 		do {
 			System.out.println("========== RESTAURANTE ==========");
@@ -43,8 +77,7 @@ public class Main {
 			System.out.println("0 - SAIR");
 			System.out.println("==========================");
 
-			op1 = sc.nextInt();
-			sc.nextLine();
+			op1 = inserirInt(sc);
 
 			switch (op1) {
 
@@ -57,8 +90,7 @@ public class Main {
 					System.out.println("0 - VOLTAR");
 					System.out.println("==============================");
 
-					op2 = sc.nextInt();
-					sc.nextLine();
+					op2 = inserirInt(sc);
 
 					switch (op2) {
 					case 1: {
@@ -71,12 +103,11 @@ public class Main {
 							System.out.println("0 - VOLTAR");
 							System.out.println("==============================");
 
-							op3 = sc.nextInt();
-							sc.nextLine();
+							op3 = inserirInt(sc);
 
 							switch (op3) {
 							case 1: {
-								if (reserva == null || listaReservas == null || listaReservas.isEmpty()) {
+								if (reserva == null || listaReservas.isEmpty()) {
 									System.out.println("Nenhuma Reserva Registrada");
 									break;
 								} else {
@@ -98,9 +129,7 @@ public class Main {
 
 								System.out.println("\n========== Fazer Reserva ==========");
 								System.out.println("Digite o id do cliente: ");
-								int idCliente = sc.nextInt();
-
-								sc.nextLine();
+								int idCliente = inserirInt(sc);
 
 								Cliente clienteSelec = null;
 								for (Cliente id : listaClientes) {
@@ -115,9 +144,7 @@ public class Main {
 								}
 
 								System.out.println("Digite o numero da mesa: ");
-								int numMesa = sc.nextInt();
-
-								sc.nextLine();
+								int numMesa = inserirInt(sc);
 
 								Mesa mesaSelec = null;
 								for (Mesa mesinha : mesa.getListaMesas()) {
@@ -137,7 +164,7 @@ public class Main {
 								String horaReserva = sc.nextLine();
 
 								reserva = new Reservas(dataReserva, horaReserva, clienteSelec.getNome(),
-										clienteSelec.getTelefone(), mesaSelec.getNumero());
+								clienteSelec.getTelefone(), mesaSelec.getNumero());
 								reserva.setIdReserva(++ultimoIdReserva);
 								listaReservas.add(reserva);
 								mesaSelec.reservar();
@@ -145,12 +172,16 @@ public class Main {
 								break;
 							}
 							case 3: {
+								if (reserva == null || listaReservas.isEmpty()) {
+									System.out.println("Nenhuma Reserva Registrada");
+									break;
+								}
+								
 								System.out.println("========== Cancelar Reserva ==========");
 								reserva.listarReservas(listaReservas);
 
 								System.out.println("\nInsira o ID da Reserva");
-								int canIdReserva = sc.nextInt();
-								sc.nextLine();
+								int canIdReserva = inserirInt(sc);
 
 								for (int i = 0; i < listaReservas.size(); i++) {
 									Reservas r = listaReservas.get(i);
@@ -171,6 +202,11 @@ public class Main {
 								break;
 							}
 							case 4: {
+								if (reserva == null || listaReservas.isEmpty()) {
+									System.out.println("Nenhuma Reserva Registrada");
+									break;
+								}
+								
 								System.out.println("========== Modificar Reserva ==========");
 								break;
 							}
@@ -191,7 +227,7 @@ public class Main {
 							System.out.println("0 - VOLTAR");
 							System.out.println("==============================");
 
-							op4 = sc.nextInt();
+							op4 = inserirInt(sc);
 							sc.nextLine();
 
 							switch (op4) {
@@ -238,8 +274,7 @@ public class Main {
 							System.out.println("0 - VOLTAR");
 							System.out.println("===========================");
 
-							op5 = sc.nextInt();
-							sc.nextLine();
+							op5 = inserirInt(sc);
 
 							switch (op5) {
 							case 1: {
@@ -272,8 +307,7 @@ public class Main {
 			case 2: {
 				System.out.println("========== Cozinha ==========");
 
-				op6 = sc.nextInt();
-				sc.nextLine();
+				op6 = inserirInt(sc);
 				
 				switch(op6) {
 				
@@ -288,9 +322,10 @@ public class Main {
 					System.out.println("3 - Remover Item");
 					System.out.println("0 - VOLTAR");
 					System.out.println("==============================");
-					op8 = sc.nextInt();
-					sc.nextLine();
-					switch (op8) {
+					
+					op7 = inserirInt(sc);
+					
+					switch (op7) {
 					case 1: {
 						cardapio.imprimirCardapio();
 						break;
@@ -306,10 +341,11 @@ public class Main {
 							System.out.println("5 - Outros");
 							System.out.println("0 - VOLTAR");
 							System.out.println("====================================");
-							op9 = sc.nextInt();
+							
+							op8 = inserirInt(sc);
 							sc.nextLine();
 							
-							if(op9 == 0) {
+							if(op8 == 0) {
 								System.out.println("Voltando...");
 								break;
 							}
@@ -321,27 +357,27 @@ public class Main {
 							System.out.println("Insira uma descricao para o item");
 							String descricao = sc.nextLine();
 							System.out.println("Insira um preco para o item");
-							double preco = sc.nextDouble();
+							double preco = inserirDouble(sc);
 							
-							if(op9 == 1) {
+							if(op8 == 1) {
 								cardapio.adicionarItem("Pratos Principais", new ItemCardapio(nome, tamanho, descricao, preco));
 								System.out.println("Item adicionado ao cardapio com sucesso.");
-							} else if(op9 == 2) {
+							} else if(op8 == 2) {
 								cardapio.adicionarItem("Acompanhamentos", new ItemCardapio(nome, tamanho, descricao, preco));
 								System.out.println("Item adicionado ao cardapio com sucesso.");
-							} else if(op9 == 3) {
+							} else if(op8 == 3) {
 								cardapio.adicionarItem("Bebidas", new ItemCardapio(nome, tamanho, descricao, preco));
 								System.out.println("Item adicionado ao cardapio com sucesso.");
-							} else if(op9 == 4) {
+							} else if(op8 == 4) {
 								cardapio.adicionarItem("Sobremesas", new ItemCardapio(nome, tamanho, descricao, preco));
 								System.out.println("Item adicionado ao cardapio com sucesso.");
-							} else if(op9 == 5) {
+							} else if(op8 == 5) {
 								cardapio.adicionarItem("Outros", new ItemCardapio(nome, tamanho, descricao, preco));
 								System.out.println("Item adicionado ao cardapio com sucesso.");
 							} else {
 								System.out.println("Opcao inserida invalida. Tente Novamente.");
 							}
-						} while (op9!=0);
+						} while (op8!=0);
 						break;
 					}
 					case 3: {
@@ -355,43 +391,37 @@ public class Main {
 						System.out.println("0 - VOLTAR");
 						System.out.println("===================================");
 
-						op10 = sc.nextInt();
-						sc.nextLine();
+						op9 = inserirInt(sc);
 						
-						if(op10 == 0) {
+						if(op9 == 0) {
 							System.out.println("Voltando...");
 							break;
 						}
 						
-						if(op10 == 1) {
+						if(op9 == 1) {
 							cardapio.imprimirItensCategoria("Pratos Principais", cardapio.getCategorias());
 							System.out.println("\nInsira o ID do Item");
-			                int canIdItem = sc.nextInt();
-				            sc.nextLine();
+			                int canIdItem = inserirInt(sc);
 				            cardapio.removerItem("Pratos Principais", canIdItem);
-						} else if(op10 == 2) {
+						} else if(op9 == 2) {
 							cardapio.imprimirItensCategoria("Acompanhamentos", cardapio.getCategorias());
 							System.out.println("\nInsira o ID do Item");
-			                int canIdItem = sc.nextInt();
-				            sc.nextLine();
+			                int canIdItem = inserirInt(sc);
 				            cardapio.removerItem("Acompanhamentos", canIdItem);
-						} else if(op10 == 3) {
+						} else if(op9 == 3) {
 							cardapio.imprimirItensCategoria("Bebidas", cardapio.getCategorias());
 							System.out.println("\nInsira o ID do Item");
-			                int canIdItem = sc.nextInt();
-				            sc.nextLine();
+			                int canIdItem = inserirInt(sc);
 				            cardapio.removerItem("Bebidas", canIdItem);
-						} else if(op10 == 4) {
+						} else if(op9 == 4) {
 							cardapio.imprimirItensCategoria("Sobremesas", cardapio.getCategorias());
 							System.out.println("\nInsira o ID do Item");
-			                int canIdItem = sc.nextInt();
-				            sc.nextLine();
+			                int canIdItem = inserirInt(sc);
 				            cardapio.removerItem("Sobremesas", canIdItem);
-						} else if(op10 == 5) {
+						} else if(op9 == 5) {
 							cardapio.imprimirItensCategoria("Outros", cardapio.getCategorias());
 							System.out.println("\nInsira o ID do Item");
-			                int canIdItem = sc.nextInt();
-				            sc.nextLine();
+			                int canIdItem = inserirInt(sc);
 				            cardapio.removerItem("Outros", canIdItem);
 						} else {
 							System.out.println("Opcao inserida invalida. Tente Novamente.");
@@ -405,7 +435,7 @@ public class Main {
 					default:
 						System.out.println("Opcao inserida invalida. Tente Novamente.");
 					}
-				} while (op8 != 0);
+				} while (op7 != 0);
 				break;
 			}
 			case 4: {
@@ -413,12 +443,13 @@ public class Main {
 					System.out.println("========== Pedidos ==========");
 					System.out.println("1 - Pedidos Realizados");
 					System.out.println("2 - Fazer Pedido");
-					System.out.println("2 - Cancelar Pedido");
+					System.out.println("3 - Cancelar Pedido");
 					System.out.println("0 - VOLTAR");
 					System.out.println("=============================");
-					op7 = sc.nextInt();
-					sc.nextLine();
-					switch (op7) {
+					
+					op10 = inserirInt(sc);
+					
+					switch (op10) {
 					case 1: {
 						break;
 					}
@@ -434,7 +465,7 @@ public class Main {
 					default:
 						System.out.println("Opcao inserida invalida. Tente Novamente.");
 					}
-				} while (op7 != 0);
+				} while (op10 != 0);
 				break;
 			}
 			case 0:
