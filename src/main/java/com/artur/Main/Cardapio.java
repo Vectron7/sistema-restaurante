@@ -20,7 +20,7 @@ public class Cardapio {
 
 	private void gerarItems() {
 		
-		categorias.put("Pratos Principais", new ArrayList<>());
+	categorias.put("Pratos Principais", new ArrayList<>());
         categorias.put("Acompanhamentos", new ArrayList<>());
         categorias.put("Bebidas", new ArrayList<>());
         categorias.put("Sobremesas", new ArrayList<>());
