@@ -7,7 +7,7 @@
 // Criar comentarios explicando cada parte do codigo
 
 // OBS: as funções inserirInt e inserirDouble, são funções que pega a entrada do usuario verifica se é um int ou double e retorna ela, se n for ele pede
-// que o usuario insira denovo até acertar (essas funções evitam que o codigo pare se um valor diferente do que é requisitado seja inserido.
+// que o usuario insira denovo até acertar (essas funções evitam que o codigo pare se um tipo diferente do que é requisitado seja inserido.
 
 package com.artur.Main;
 
