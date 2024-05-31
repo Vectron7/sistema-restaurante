@@ -1,9 +1,9 @@
 // Faltam fazer: Pedidos, Cozinha, Caixa, "Garçom?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
-// Tem que Usar Herança (ja usado), Polimorfismo (falta), abstração (Ja Usado), interface (falta)
+// Tem que Usar Herança (ja usado), Polimorfismo (Ja usado), abstração (Ja Usado), interface (falta)
 
 // Criar logica para quantidade de items do cardapio que vai ser pedido (algo como quantidade * preço) e criar uma lista separada
 // para os itens que foram pedidos/comprados (como uma comanda) com o preço total.
-// fazer a parte de modificar uma reserva
+// Fazer a parte de modificar uma reserva
 
 // OBS: as funções inserirInt e inserirDouble, são funções que pega a entrada do usuario verifica se é um int ou double e retorna ela, se n for ele pede
 // que o usuario insira denovo até acertar (essas funções evitam que o codigo pare se um valor diferente do que é requisitado seja inserido.
@@ -331,7 +331,6 @@ public class Main {
 						break;
 					}
 					case 2: {
-						do {
 							System.out.println("\n========== Adicionar Item ==========");
 							System.out.println("Escolha a categoria do item.");
 							System.out.println("1 - Pratos Principais");
@@ -377,7 +376,6 @@ public class Main {
 							} else {
 								System.out.println("Opcao inserida invalida. Tente Novamente.");
 							}
-						} while (op8!=0);
 						break;
 					}
 					case 3: {

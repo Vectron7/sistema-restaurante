@@ -2,7 +2,7 @@ package com.artur.Pessoas;
 
 import java.util.ArrayList;
 
-public class Cliente extends Pessoas{
+public class Cliente extends Pessoa{
 
 	private String endereco;
 	private String dataNasc;
@@ -16,6 +16,7 @@ public class Cliente extends Pessoas{
 		this.telefone = telefone;
 	}
 
+	@Override
 	public void listar(ArrayList<?> lista) {
 
 		for (Object obj : lista) {

@@ -2,11 +2,11 @@ package com.artur.Pessoas;
 
 import java.util.ArrayList;
 
-public abstract class Pessoas {
+public abstract class Pessoa {
 
 	protected String nome;
     
-    public Pessoas(String nome) {
+    public Pessoa(String nome) {
 		this.nome = nome;
 	}
     

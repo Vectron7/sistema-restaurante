@@ -11,6 +11,7 @@ public class Cardapio {
 
 	
 	private Map<String, List<ItemCardapio>> categorias;
+	private int IdGlobal = 1;
 	
 	public Cardapio() {
 		this.categorias = new LinkedHashMap<>();
@@ -51,7 +52,25 @@ public class Cardapio {
 
 	}
 	
-	public int obterIdMaisAltoCategoria(String categoria, List<ItemCardapio> itensCategoria) {
+	private String Categoria(String categoria) {
+		
+		if(categoria == "Pratos Principais") {
+			return "Pratos Principais";
+		} else if(categoria == "Acompanhamentos") {
+			return "Pratos Principais";
+		} else if(categoria == "Bebidas") {
+			return "Acompanhamentos";
+		} else if(categoria == "Sobremesas") {
+			return "Bebidas";
+		} else if(categoria == "Outros") {
+			return "Sobremesas";
+		} else {
+			return null;
+		}
+	
+	}
+	
+	private int obterIdMaisAltoCategoria(String categoria, List<ItemCardapio> itensCategoria) {
 	    int idMaisAlto = 0;
 	    
 	    // Verifica se a categoria existe no mapa
@@ -72,13 +91,31 @@ public class Cardapio {
 
 	public void adicionarItem(String categoria, ItemCardapio item) {
 		
+		int idAlto = 1;
+		
+		String catAnterior = Categoria(categoria);
+		List<ItemCardapio> itensCatAnterior = categorias.get(catAnterior);
 		List<ItemCardapio> itens = categorias.get(categoria);
 		
-		item.setIdItem(obterIdMaisAltoCategoria(categoria, itens) + 1);
+		if(categoria == "Pratos Principais") {
+			item.setIdItem(this.IdGlobal++);
+		} else {
+			idAlto = obterIdMaisAltoCategoria(catAnterior, itensCatAnterior);
+			item.setIdItem(idAlto + 1);
+		}
 		
 		if (itens != null) {
             itens.add(item);
 		}
+		
+		int novoId = 1;
+	    for (Map.Entry<String, List<ItemCardapio>> entry : categorias.entrySet()) {
+	        for (ItemCardapio itemCategoria : entry.getValue()) {
+	            itemCategoria.setIdItem(novoId++);
+	        }
+	    }
+
+
 
 	}
 	
@@ -101,10 +138,14 @@ public class Cardapio {
 	            itensCategoria.remove(itemRemovido);
 	            System.out.println("Item removido com sucesso.");
 	            
-	            int novoId = 1;
-	            for (ItemCardapio item : itensCategoria) {
-	                item.setIdItem(novoId++);
-	            }
+	    		int novoId = 1;
+	    	    for (Map.Entry<String, List<ItemCardapio>> entry : categorias.entrySet()) {
+	    	        for (ItemCardapio itemCategoria : entry.getValue()) {
+	    	            itemCategoria.setIdItem(novoId++);
+	    	        }
+	    	    }
+
+	            
 	        } else {
 	            System.out.println("ID do Item não encontrado na categoria: " + categoria);
 	        }
@@ -117,8 +158,6 @@ public class Cardapio {
 
 	public void imprimirCardapio() {
 		
-		
-		
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 	    symbols.setDecimalSeparator('.');
 		DecimalFormat df = new DecimalFormat("0.00", symbols);
@@ -128,7 +167,7 @@ public class Cardapio {
 		
 		for (Map.Entry<String, List<ItemCardapio>> entry : getCategorias().entrySet()) {
 			String categoria = entry.getKey();
-			List<ItemCardapio> itensCategoria = entry.getValue();
+			List<ItemCardapio>  itensCategoria = entry.getValue();
 			
 		    System.out.println(categoria + "\n");
 		    
@@ -136,9 +175,8 @@ public class Cardapio {
 	            System.out.println("ID: " + item.getIdItem() + " | " + item.getNome() + ": " + item.getDescricao());
 	            System.out.println("Tamanho: " + item.getTamanho());
 	            System.out.println("Preço: R$ " + df.format(item.getPreco()) + "\n");
+	            
 	        }
-		    
-		    
 		    
 		    System.out.print("\n");
 		}

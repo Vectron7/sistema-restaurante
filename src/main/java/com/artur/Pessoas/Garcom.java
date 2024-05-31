@@ -2,7 +2,7 @@ package com.artur.Pessoas;
 
 import java.util.ArrayList;
 
-public class Garcom extends Pessoas{
+public class Garcom extends Pessoa{
 
     private float salario;
     private String dataContratacao;
@@ -14,6 +14,7 @@ public class Garcom extends Pessoas{
         this.dataContratacao = dataContratacao;
     }
     
+    @Override
     public void listar(ArrayList<?> lista) {
     	
     }
