@@ -1,15 +1,16 @@
-package com.artur.Main;
+package com.artur.controle;
 
-public class ItemCardapio{
-	
+import com.artur.interfaces.Identificacao;
+
+public class ItemCardapio implements Identificacao {
+
 	private String nome;
 	private String tamanho;
 	private String descricao;
 	private String categoria;
 	private double preco;
 	private int idItem;
-	
-	
+
 	public ItemCardapio(String nome, String tamanho, String descricao, double preco) {
 		this.nome = nome;
 		this.tamanho = tamanho;
@@ -17,29 +18,27 @@ public class ItemCardapio{
 		this.preco = preco;
 		this.categoria = definirCategoria(nome);
 	}
-	
+
 	public ItemCardapio() {
 		super();
 	}
 
-
 	private String definirCategoria(String nome) {
-		
+
 		if (nome.contains("Bife") || nome.contains("Frango") || nome.contains("Spaghetti")) {
-            return "Pratos Principais";
-        } else if (nome.contains("Arroz") || nome.contains("Batata") || nome.contains("Salada")) {
-            return "Acompanhamentos";
-        } else if (nome.contains("Refrigerante") || nome.contains("Suco") || nome.contains("Agua")) {
-            return "Bebidas";
-        } else if (nome.contains("Mousse") || nome.contains("Pudim") || nome.contains("Sorvete")) {
-            return "Sobremesas";
-        } else {
-            return "Outros/Adicionados";
-        }
-		
+			return "Pratos Principais";
+		} else if (nome.contains("Arroz") || nome.contains("Batata") || nome.contains("Salada")) {
+			return "Acompanhamentos";
+		} else if (nome.contains("Refrigerante") || nome.contains("Suco") || nome.contains("Agua")) {
+			return "Bebidas";
+		} else if (nome.contains("Mousse") || nome.contains("Pudim") || nome.contains("Sorvete")) {
+			return "Sobremesas";
+		} else {
+			return "Outros/Adicionados";
+		}
+
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return nome + ": " + descricao + "\nTamanho: " + tamanho + "\nPreço: R$ " + preco + "\n";
@@ -85,15 +84,13 @@ public class ItemCardapio{
 		this.categoria = categoria;
 	}
 
-	public int getIdItem() {
+	@Override
+	public int getId() {
 		return idItem;
 	}
 
 	public void setIdItem(int idItem) {
 		this.idItem = idItem;
 	}
-	
-	
-	
 
 }
