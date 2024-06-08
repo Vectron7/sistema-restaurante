@@ -15,6 +15,7 @@ import com.artur.pessoas.Garcom;
 
 public class GerenciarMenu {
 
+    GerenciarPedidos pedidos = new GerenciarPedidos();
     GerenciarCardapio cardapio = new GerenciarCardapio();
     GerenciarMesas mesa = new GerenciarMesas();
     GerenciarReservas reserva = new GerenciarReservas();
