@@ -11,6 +11,7 @@ package com.artur.controle;
 
 import java.util.Scanner;
 
+import com.artur.estabelecimento.Restaurante;
 import com.artur.gerenciamento.GerenciarCardapio;
 import com.artur.gerenciamento.GerenciarMenu;
 import com.artur.gerenciamento.GerenciarMesas;
@@ -23,18 +24,15 @@ public class Principal {
     public static void main(String[] args) {
 
         GerenciarMenu menu = new GerenciarMenu();
-
-        int opcao;
-
         Scanner sc = new Scanner(System.in);
+        Restaurante restaurante = new Restaurante();
+        
+        int opcao;
 
         do {
             System.out.println("========== RESTAURANTE ==========");
-            System.out.println("1 - Recepcao (Reservas, Mesas)");
-            System.out.println("2 - Cadastros (Cliente, Garcom, Gerente)");
-            System.out.println("3 - Cardapio (Mostrar, Adicionar e Remover item)");
-            System.out.println("4 - Pedido (Mostrar, Fazer e Cancelar Pedido)");
-            System.out.println("5 - Cozinha");
+            System.out.println("1 - Inciar Atendimento");
+            System.out.println("2 - Administração");
             System.out.println("0 - SAIR");
             System.out.println("==========================");
 
@@ -47,19 +45,11 @@ public class Principal {
 
             switch (opcao) {
                 case 1:
-                    menu.menuRecepcao(sc);
+                    restaurante.iniciar();
+                    menu.menuAtendimento(sc);
                     break;
                 case 2:
-                    menu.menuCadastros(sc);
-                    break;
-                case 3:
-                    menu.menuCardapio(sc);
-                    break;
-                case 4:
-                    menu.menuPedido(sc);
-                    break;
-                case 5:
-                    menu.menuCozinha(sc);
+                    menu.menuAdministracao(sc);
                     break;
                 default:
                     System.out.println("Opcao inserida invalida. Tente Novamente.");

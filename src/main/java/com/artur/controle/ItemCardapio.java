@@ -19,10 +19,6 @@ public class ItemCardapio implements Identificacao {
         this.categoria = definirCategoria(nome);
     }
 
-    public ItemCardapio() {
-        super();
-    }
-
     private String definirCategoria(String nome) {
 
         if (nome.contains("Bife") || nome.contains("Frango") || nome.contains("Spaghetti")) {

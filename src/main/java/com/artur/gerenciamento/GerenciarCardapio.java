@@ -13,14 +13,15 @@ import java.util.List;
 
 public class GerenciarCardapio implements Listagem {
 
-    private Map<String, List<ItemCardapio>> cardapio;
+    private final Map<String, List<ItemCardapio>> cardapio;
     private int IdGlobal = 1;
 
     public GerenciarCardapio() {
         this.cardapio = new LinkedHashMap<>();
+        gerarItems();
     }
 
-    public void gerarItems() {
+    protected void gerarItems() {
 
         cardapio.put("Pratos Principais", new ArrayList<>());
         cardapio.put("Acompanhamentos", new ArrayList<>());
@@ -56,19 +57,13 @@ public class GerenciarCardapio implements Listagem {
 
     private String Categoria(String categoria) {
 
-        if (categoria == "Pratos Principais") {
-            return "Pratos Principais";
-        } else if (categoria == "Acompanhamentos") {
-            return "Pratos Principais";
-        } else if (categoria == "Bebidas") {
-            return "Acompanhamentos";
-        } else if (categoria == "Sobremesas") {
-            return "Bebidas";
-        } else if (categoria == "Outros") {
-            return "Sobremesas";
-        } else {
-            return null;
-        }
+        return switch (categoria) {
+            case "Pratos Principais", "Acompanhamentos" -> "Pratos Principais";
+            case "Bebidas" -> "Acompanhamentos";
+            case "Sobremesas" -> "Bebidas";
+            case "Outros" -> "Sobremesas";
+            default -> null;
+        };
 
     }
 
@@ -99,7 +94,7 @@ public class GerenciarCardapio implements Listagem {
         List<ItemCardapio> itensCatAnterior = cardapio.get(catAnterior);
         List<ItemCardapio> itens = cardapio.get(categoria);
 
-        if (categoria == "Pratos Principais") {
+        if (categoria.equals("Pratos Principais")) {
             item.setIdItem(this.IdGlobal++);
         } else {
             idAlto = obterIdMaisAltoCategoria(catAnterior, itensCatAnterior);
@@ -173,7 +168,6 @@ public class GerenciarCardapio implements Listagem {
 
             }
 
-            System.out.print("\n");
         }
 
     }
@@ -199,8 +193,5 @@ public class GerenciarCardapio implements Listagem {
         return cardapio;
     }
 
-    public void setCardapio(Map<String, List<ItemCardapio>> cardapio) {
-        this.cardapio = cardapio;
-    }
 
 }

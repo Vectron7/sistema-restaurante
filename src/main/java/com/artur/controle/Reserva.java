@@ -41,12 +41,11 @@ public class Reserva implements Identificacao {
             return null;
         }
 
-        System.out.println("Total garcons: " + pessoa.getListaGarcom().size());
         for (Garcom g : pessoa.getListaGarcom()) {
-            System.out.println("Garcom ID: " + g.getId() + ", Ocupado: " + g.isOcupado());
             if (!g.isOcupado()) {
                 g.setOcupado(true);
                 System.out.println("Garcom escolhido: ID " + g.getId());
+                System.out.println("Nome do Garcom: " + g.getNome());
                 return g;
             }
         }

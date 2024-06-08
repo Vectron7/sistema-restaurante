@@ -1,7 +1,6 @@
 package com.artur.gerenciamento;
 
 import java.util.ArrayList;
-
 import com.artur.interfaces.Pessoa;
 import com.artur.pessoas.*;
 
@@ -23,7 +22,7 @@ public class GerenciarPessoa implements Pessoa {
     }
 
 
-    public void gerarGarcom() {
+    protected void gerarGarcom() {
         adicionarGarcom(new Garcom("Thiago", "Capao Redondo", "1234-5678", 1412));
         adicionarGarcom(new Garcom("Ana", "Av. Paulista, 100", "9876-5432", 1413));
         adicionarGarcom(new Garcom("Carlos", "Rua Augusta, 200", "8765-4321", 1414));
@@ -33,7 +32,7 @@ public class GerenciarPessoa implements Pessoa {
 
     @Override
     public void adicionarCliente(Cliente cliente) {
-
+        // Define o id do cliente e o adiciona a lista de cliente
         cliente.setIdCliente(++ultimoIdCliente);
         listaClientes.add(cliente);
 
@@ -41,7 +40,7 @@ public class GerenciarPessoa implements Pessoa {
 
     @Override
     public void removerCliente(int IdCliente) {
-
+        // Verifica se o id do cliente existe e o remove
         for (int i = 0; i < listaClientes.size(); i++) {
             Cliente r = listaClientes.get(i);
             if (r.getId() == IdCliente) {
@@ -49,6 +48,7 @@ public class GerenciarPessoa implements Pessoa {
                 System.out.println("Cliente removido com sucesso.");
             }
 
+            // Atualiza os ids da lista
             for (Cliente listaCliente : listaClientes) {
                 int novoID = listaCliente.getId() - 1;
                 if (novoID >= 1) {
@@ -58,21 +58,30 @@ public class GerenciarPessoa implements Pessoa {
 
         }
 
+        // Se a lista estiver vazia, garante que o ultimoIdCliente seja 0
         if (listaClientes.isEmpty()) {
             this.ultimoIdCliente = 0;
         }
     }
 
     @Override
-    public void adicionarGarcom(Garcom garcom) {
-        // Adicionar Logica
+    public void listarCliente() {
+        for (Cliente cliente : listaClientes) {
+            System.out.println("ID: " + cliente.getId() + " | Nome: " + cliente.getNome() + " | Endereco: " + cliente.getEndereco() + " | Telefone: " + cliente.getTelefone() + " | Data de Nascimento: " + cliente.getDataNasc());
 
+        }
+    }
+
+    @Override
+    public void adicionarGarcom(Garcom garcom) {
+        // Define o id do garçom e o adiciona a lista de garçons
         garcom.setIdGarcom(++ultimoIdGarcom);
         listaGarcom.add(garcom);
     }
 
     @Override
     public void removerGarcom(int IdGarcom) {
+        // Verifica se o id do garçom existe e o remove
         for (int i = 0; i < listaGarcom.size(); i++) {
             Garcom g = listaGarcom.get(i);
             if (g.getId() == IdGarcom) {
@@ -92,26 +101,8 @@ public class GerenciarPessoa implements Pessoa {
     }
 
     @Override
-    public void adicionarGerente(Gerente gerente) {
-        // Adicionar Logica
-        // Apenas um Gerente por vez (nao permitir adicionar mais de um)
-    }
-
-    @Override
-    public void removerGerente(int IdGerente) {
-        // Adicionar Logica e parametros do metodo
-    }
-
-    @Override
-    public void listarCliente() {
-        for (Cliente cliente : listaClientes) {
-            System.out.println("ID: " + cliente.getId() + " | Nome: " + cliente.getNome() + " | Endereco: " + cliente.getEndereco() + " | Telefone: " + cliente.getTelefone() + " | Data de Nascimento: " + cliente.getDataNasc());
-
-        }
-    }
-
-    @Override
     public void listarGarcom() {
+
         for (Garcom garcom : listaGarcom) {
             System.out.print("ID: " + garcom.getId() + " | Nome: " + garcom.getNome() + " | Endereco: " + garcom.getEndereco() + " | Telefone: " + garcom.getTelefone() + " | Salario: " + garcom.getSalario() + " | Data de Contratacao: " + garcom.getDataContratacao());
             if (garcom.isOcupado()) {
@@ -120,6 +111,17 @@ public class GerenciarPessoa implements Pessoa {
                 System.out.println(" | (Livre) ");
             }
         }
+    }
+
+    @Override
+    public void adicionarGerente(Gerente gerente) {
+        // Adicionar Logica
+        // Apenas um Gerente por vez (nao permitir adicionar mais de um)
+    }
+
+    @Override
+    public void removerGerente(int IdGerente) {
+        // Adicionar Logica e parametros do metodo
     }
 
     @Override

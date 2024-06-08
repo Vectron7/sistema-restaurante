@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.artur.controle.ItemCardapio;
 import com.artur.controle.Reserva;
 import com.artur.estabelecimento.Mesa;
+import com.artur.estabelecimento.Restaurante;
 import com.artur.pessoas.Cliente;
 import com.artur.pessoas.Garcom;
 
@@ -18,11 +19,10 @@ public class GerenciarMenu {
     GerenciarMesas mesa = new GerenciarMesas();
     GerenciarReservas reserva = new GerenciarReservas();
     GerenciarPessoa pessoa = new GerenciarPessoa();
+    Restaurante restaurante = new Restaurante();
 
     public GerenciarMenu() {
         pessoa.gerarGarcom();
-        mesa.criarMesa();
-        cardapio.gerarItems();
     }
 
     public int inserirInt(Scanner scanner) {
@@ -75,6 +75,204 @@ public class GerenciarMenu {
 
         return num;
     }
+    // Menu de Atendimento
+
+    public void menuAtendimento(Scanner sc) {
+        int opcao1;
+
+        do {
+            System.out.println("\nOla!! Bem vindo ao " + restaurante.getNOME_RESTAURANTE() + ". Para iniciar o atendimento, precisamos fazer seu cadastro.");
+            System.out.println("Se voce ja tem um cadastro, pressione (1).");
+            System.out.println("Se voce deseja fazer um cadastro, pressione (2)");
+            System.out.println("Se deseja voltar, pressione (0)");
+
+            opcao1 = inserirInt(sc);
+            sc.nextLine();
+
+            if (opcao1 == 0) {
+                System.out.println("Voltanto...");
+                return;
+            }
+
+            switch (opcao1) {
+                case 1:
+
+                    if (pessoa.getListaClientes().isEmpty()) {
+                        System.out.println("Nenhum Cliente Encontrado. Deseja cadastrar um Cliente? (1)Sim/(2)Nao");
+                        int opcaoCliRe = inserirInt(sc);
+                        sc.nextLine();
+
+                        if (opcaoCliRe == 1) {
+                            subMenuClienteCadastro(sc);
+                            opcao1 = 0;
+                            break;
+                        } else if (opcaoCliRe == 2) {
+                            break;
+                        } else {
+                            System.out.println("Opcao invalida. Voltando para o menu anterior...");
+                            break;
+                        }
+                    }else{
+                        opcao1 = 0;
+                        break;
+                    }
+
+                case 2:
+                    subMenuClienteCadastro(sc);
+                    opcao1 = 0;
+                    break;
+                default:
+                    System.out.println("Opcao inserida invalida. Tente Novamente.");
+            }
+        } while (opcao1 != 0);
+
+        System.out.println("Agora, Vamos fazer sua reserva!");
+        subMenuReservaFazerReserva(sc);
+        System.out.println("Reserva feita com sucesso!");
+
+        int temp = 0;
+        int opcao2;
+
+        System.out.println("Agora, seu pedido.");
+
+        do {
+            System.out.println("1 - Mostrar o Cardapio");
+            System.out.println("2 - Fazer o Pedido");
+            if (temp >= 1) {
+                System.out.println("3 - Ir Para o Pagamento");
+            }
+            System.out.println("0 - Cancelar");
+
+            opcao2 = inserirInt(sc);
+            sc.nextLine();
+
+            if (opcao2 == 0) {
+                System.out.println("Cancelando...");
+                return;
+            }
+
+            switch (opcao2) {
+                case 1:
+                    cardapio.listar();
+                    break;
+                case 2:
+                    int opcao3;
+                    System.out.println("Qual a categoria do pedido?");
+                    System.out.println("1 - Pratos Principais\n2 - Acompanhamentos\n3 - Bebidas\n4 - Sobremesas\n5 - Outros");
+
+                    opcao3 = inserirInt(sc);
+                    sc.nextLine();
+
+                    switch(opcao3){
+                        case 1:
+                            if(cardapio.getCardapio().containsKey("Pratos Principais")){
+                                if(cardapio.getCardapio().get("Pratos Principais").isEmpty()){
+                                    System.out.println("Desculpe, não há pratos principais disponíveis no momento.");
+                                    break;
+                                } else{
+                                    cardapio.imprimirItensCategoria("Pratos Principais", cardapio.getCardapio());
+                                }
+                            }
+                            break;
+                        case 2:
+                            if(cardapio.getCardapio().containsKey("Acompanhamentos")){
+                                if(cardapio.getCardapio().get("Acompanhamentos").isEmpty()){
+                                    System.out.println("Desculpe, não há acompanhamentos disponíveis no momento.");
+                                    break;
+                                } else{
+                                    cardapio.imprimirItensCategoria("Acompanhamentos", cardapio.getCardapio());
+                                }
+                            }
+
+                            break;
+                        case 3:
+                            if(cardapio.getCardapio().containsKey("Bebidas")){
+                                if(cardapio.getCardapio().get("Bebidas").isEmpty()){
+                                    System.out.println("Desculpe, não há bebidas disponíveis no momento.");
+                                    break;
+                                } else{
+                                    cardapio.imprimirItensCategoria("Bebidas", cardapio.getCardapio());
+                                }
+                            }
+
+                            break;
+                        case 4:
+                            if(cardapio.getCardapio().containsKey("Sobremesas")){
+                                if(cardapio.getCardapio().get("Sobremesas").isEmpty()){
+                                    System.out.println("Desculpe, não há sobremesas disponíveis no momento.");
+                                    break;
+                                } else{
+                                    cardapio.imprimirItensCategoria("Sobremesas", cardapio.getCardapio());
+                                }
+                            }
+
+                            break;
+                        case 5:
+                            if(cardapio.getCardapio().containsKey("Outros")){
+                                if(cardapio.getCardapio().get("Outros").isEmpty()){
+                                    System.out.println("Desculpe, não há outros disponíveis no momento.");
+                                    break;
+                                } else{
+                                    cardapio.imprimirItensCategoria("Outros", cardapio.getCardapio());
+                                }
+                            }
+
+                            break;
+                        default:
+                            System.out.println("Opcao inserida invalida. Tente Novamente.");
+                    }
+
+
+                case 3:
+                    break;
+                default:
+                    System.out.println("Opção inserida inválida. Tente novamente.");
+
+            }
+
+        }while (opcao2 != 0);
+    }
+
+    // Menu de Administração
+
+    public void menuAdministracao(Scanner sc){
+        int menuAdministracao;
+
+        do{
+            System.out.println("========== ADMINISTRACAO ==========");
+            System.out.println("1 - Recepcao");
+            System.out.println("2 - Cadastros");
+            System.out.println("3 - Cardapio");
+            System.out.println("4 - Cozinha");
+            System.out.println("0 - Voltar");
+            System.out.println("===================================");
+
+            menuAdministracao = inserirInt(sc);
+
+            if(menuAdministracao == 0){
+                System.out.println("Voltando...");
+                break;
+            }
+
+            switch (menuAdministracao){
+                case 1:
+                    menuRecepcao(sc);
+                    break;
+                case 2:
+                    menuCadastros(sc);
+                    break;
+                case 3:
+                    menuCardapio(sc);
+                    break;
+                case 4:
+                    menuCozinha(sc);
+                    break;
+                default:
+                    System.out.println("Opcao inserida invalida. Tente Novamente.");
+            }
+
+        } while(menuAdministracao != 0);
+    }
 
     // Menu da Recepção
 
@@ -83,8 +281,9 @@ public class GerenciarMenu {
 
         do {
             System.out.println("========== RECEPÇÃO ==========");
-            System.out.println("1 - Reservas");
-            System.out.println("2 - Mesas");
+            System.out.println("1 - Caixa");
+            System.out.println("2 - Reservas");
+            System.out.println("3 - Mesas");
             System.out.println("0 - VOLTAR");
             System.out.println("==============================");
 
@@ -97,15 +296,55 @@ public class GerenciarMenu {
 
             switch (opcaoRecepcao) {
                 case 1:
-                    menuReservas(sc);
+                    menuCaixa(sc);
                     break;
                 case 2:
+                    menuReservas(sc);
+                    break;
+                case 3:
                     menuMesas(sc);
                     break;
                 default:
                     System.out.println("Opção inserida inválida. Tente novamente.");
             }
         } while (opcaoRecepcao != 0);
+    }
+
+    // Menu do Caixa
+
+    public void menuCaixa(Scanner sc){
+        int opcaoCaixa;
+
+        do {
+            System.out.println("========== CAIXA ==========");
+            System.out.println("1 - Consultar contas pendentes");
+            System.out.println("2 - Registrar pagamento");
+            System.out.println("3 - Fechar caixa");
+            System.out.println("4 - Relatório de vendas");
+            System.out.println("0 - VOLTAR");
+            System.out.println("==============================");
+
+            opcaoCaixa = inserirInt(sc);
+
+            if (opcaoCaixa == 0) {
+                System.out.println("Voltando...");
+                break;
+            }
+
+            switch (opcaoCaixa) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("Opção inserida inválida. Tente novamente.");
+            }
+        } while (opcaoCaixa != 0);
+
     }
 
     // Menu de Reservas
@@ -132,6 +371,8 @@ public class GerenciarMenu {
 
             switch (opcaoReserva) {
                 case 1:
+                    // Listar Reservas
+
                     if (reserva.getListaReservas().isEmpty()) {
                         System.out.println("Nenhuma reserva registrada.");
                     } else {
@@ -157,56 +398,7 @@ public class GerenciarMenu {
 
                     }
 
-                    System.out.println("========== Clientes e Mesas ==========\n");
-                    pessoa.listarCliente();
-
-                    System.out.print("\n");
-                    mesa.listar();
-
-                    System.out.println("\n========== Fazer Reserva ==========");
-                    System.out.println("Digite o id do cliente ou digite (0) para voltar: ");
-                    int idCliente = inserirInt(sc);
-
-                    if (idCliente == 0) {
-                        System.out.println("Voltando...");
-                        break;
-                    }
-
-                    Cliente clienteSelec = null;
-                    for (Cliente id : pessoa.getListaClientes()) {
-                        if (id.getId() == idCliente) {
-                            clienteSelec = id;
-                        }
-                    }
-
-                    if (clienteSelec == null) {
-                        System.out.println("ID DE CLIENTE INVALIDO.");
-                        break;
-                    }
-
-                    System.out.println("Digite o numero da mesa: ");
-                    int numMesa = inserirInt(sc);
-                    sc.nextLine();
-
-                    Mesa mesaSelec = null;
-                    for (Mesa mesinha : mesa.getListaMesas()) {
-                        if (numMesa == mesinha.getId() && !mesinha.isStatusMesa()) {
-                            mesaSelec = mesinha;
-                        }
-                    }
-
-                    if (mesaSelec == null) {
-                        System.out.println("ID DA MESA INVALIDA OU OCUPADA");
-                        break;
-                    }
-
-                    System.out.println("Insira a Data (DD/MM/AAAA): ");
-                    String dataReserva = sc.nextLine();
-                    System.out.println("Insira o Horario (HH:MM): ");
-                    String horaReserva = sc.nextLine();
-
-                    reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(), clienteSelec.getTelefone(), mesaSelec.getId(), pessoa));
-                    mesaSelec.reservar();
+                    subMenuReservaFazerReserva(sc);
 
                     break;
                 case 3:
@@ -367,11 +559,69 @@ public class GerenciarMenu {
         } while (opcaoReserva != 0);
     }
 
+    // SubMenu de Reservas (Fazer Reservas)
+
+    public void subMenuReservaFazerReserva(Scanner sc){
+
+        System.out.println("========== Clientes e Mesas ==========\n");
+        pessoa.listarCliente();
+
+        System.out.print("\n");
+        mesa.listar();
+
+        System.out.println("\n========== Fazer Reserva ==========");
+        System.out.println("Digite o id do cliente ou digite (0) para voltar: ");
+        int idCliente = inserirInt(sc);
+
+        if (idCliente == 0) {
+            System.out.println("Voltando...");
+            return;
+        }
+
+        Cliente clienteSelec = null;
+        for (Cliente id : pessoa.getListaClientes()) {
+            if (id.getId() == idCliente) {
+                clienteSelec = id;
+            }
+        }
+
+        if (clienteSelec == null) {
+            System.out.println("ID DE CLIENTE INVALIDO.");
+            return;
+        }
+
+        System.out.println("Digite o numero da mesa: ");
+        int numMesa = inserirInt(sc);
+        sc.nextLine();
+
+        Mesa mesaSelec = null;
+        for (Mesa mesinha : mesa.getListaMesas()) {
+            if (numMesa == mesinha.getId() && !mesinha.isStatusMesa()) {
+                mesaSelec = mesinha;
+            }
+        }
+
+        if (mesaSelec == null) {
+            System.out.println("ID DA MESA INVALIDA OU OCUPADA");
+            return;
+        }
+
+        System.out.println("Insira a Data (DD/MM/AAAA): ");
+        String dataReserva = sc.nextLine();
+        System.out.println("Insira o Horario (HH:MM): ");
+        String horaReserva = sc.nextLine();
+
+        reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(), clienteSelec.getTelefone(), mesaSelec.getId(), pessoa));
+        mesaSelec.reservar();
+
+    }
+
+
     // Menu de Mesas
 
     public void menuMesas(Scanner sc) {
         int opcaoMesa;
-        int temp = 0;
+        int temp;
 
         do {
             System.out.println("========== MESAS ==========");
@@ -488,7 +738,7 @@ public class GerenciarMenu {
 
         do {
             System.out.println("========== Cadastros ==========");
-            System.out.println("1 - Clientes");
+            System.out.println("1 - Cliente");
             System.out.println("2 - Garcom");
             System.out.println("3 - Gerente");
             System.out.println("0 - Voltar");
@@ -550,19 +800,7 @@ public class GerenciarMenu {
                     }
                     break;
                 case 2:
-                    System.out.println("========== Cadastrar Cliente ==========");
-                    System.out.println("Insira o nome do cliente: ");
-                    String cadNomeCliente = sc.nextLine();
-                    System.out.println("Insira o Endereco: ");
-                    String enderecoCliente = sc.nextLine();
-                    System.out.println("Insira o Telefone");
-                    String cadTelefoneCliente = sc.nextLine();
-                    System.out.println("Insira a Data de Nascimento");
-                    String nascCliente = sc.nextLine();
-
-                    pessoa.adicionarCliente(new Cliente(cadNomeCliente, enderecoCliente, cadTelefoneCliente, nascCliente));
-                    System.out.println("Cliente cadastrado com sucesso");
-
+                    subMenuClienteCadastro(sc);
                     break;
                 case 3:
                     temp = 0;
@@ -699,11 +937,30 @@ public class GerenciarMenu {
         } while (opcaoCliente != 0);
     }
 
+    // SubMenu do Cliente (Cadastro)
+
+    public void subMenuClienteCadastro(Scanner sc){
+
+        System.out.println("========== Cadastrar Cliente ==========");
+        System.out.println("Insira o nome do cliente: ");
+        String cadNomeCliente = sc.nextLine();
+        System.out.println("Insira o Endereco: ");
+        String enderecoCliente = sc.nextLine();
+        System.out.println("Insira o Telefone");
+        String cadTelefoneCliente = sc.nextLine();
+        System.out.println("Insira a Data de Nascimento");
+        String nascCliente = sc.nextLine();
+
+        pessoa.adicionarCliente(new Cliente(cadNomeCliente, enderecoCliente, cadTelefoneCliente, nascCliente));
+        System.out.println("Cliente cadastrado com sucesso");
+    }
+
+
     // Menu do Garçom
 
     public void menuGarcom(Scanner sc) {
         int opcaoGarcom;
-        int temp = 0;
+        int temp;
 
         do {
             System.out.println("========== GARCOM ==========");
@@ -1047,26 +1304,6 @@ public class GerenciarMenu {
         } while (opcaoCardapio != 0);
     }
 
-    // Menu de Pedidos
-
-    public void menuPedido(Scanner sc) {
-        int opcaoPedido;
-
-        do {
-            System.out.println("========== PEDIDO ==========");
-            System.out.println("0 - Voltar");
-            System.out.println("============================");
-
-            opcaoPedido = inserirInt(sc);
-
-            if (opcaoPedido == 0) {
-                System.out.println("Voltando...");
-                break;
-            }
-
-        } while (opcaoPedido != 0);
-    }
-
     // Menu da Cozinha
 
     public void menuCozinha(Scanner sc) {
@@ -1074,6 +1311,11 @@ public class GerenciarMenu {
 
         do {
             System.out.println("========== COZINHA ==========");
+            System.out.println("1 - Visualizar Pedidos Pendentes");
+            System.out.println("2 - Registrar Pedido");
+            System.out.println("3 - Cancelar Pedido");
+            System.out.println("4 - Finalizar Pedido");
+            System.out.println("5 - Consultar histórico de pedidos");
             System.out.println("0 - VOLTAR");
             System.out.println("=============================");
 

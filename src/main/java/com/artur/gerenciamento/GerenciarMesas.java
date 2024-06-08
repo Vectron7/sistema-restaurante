@@ -12,9 +12,10 @@ public class GerenciarMesas implements Listagem {
 
     public GerenciarMesas() {
         this.listaMesas = new ArrayList<>();
+        criarMesa();
     }
 
-    public void criarMesa() {
+    protected void criarMesa() {
 
         adicionarMesa(new Mesa(2));
         adicionarMesa(new Mesa(4));
@@ -63,6 +64,7 @@ public class GerenciarMesas implements Listagem {
 
     public void listar() {
 
+        System.out.println("==================== MESAS ====================\n");
         for (Mesa mesas : listaMesas) {
             System.out.print("Num. Mesa: " + mesas.getId() + " | Capacidade da Mesa: " + mesas.getCapacidade());
             if (mesas.isStatusMesa()) {
@@ -72,6 +74,7 @@ public class GerenciarMesas implements Listagem {
             }
 
         }
+        System.out.println();
 
     }
 
@@ -79,4 +82,7 @@ public class GerenciarMesas implements Listagem {
         return listaMesas;
     }
 
+    public int getNumGlobal() {
+        return numGlobal;
+    }
 }
