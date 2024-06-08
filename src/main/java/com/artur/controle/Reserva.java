@@ -1,71 +1,116 @@
 package com.artur.controle;
 
+import com.artur.gerenciamento.GerenciarPessoa;
 import com.artur.interfaces.Identificacao;
+import com.artur.pessoas.Garcom;
 
 public class Reserva implements Identificacao {
 
-	private int idReserva;
-	private int numMesa;
-	private String telefoneCliente;
-	private String nomeCliente;
-	private String dataReserva;
-	private String horaReserva;
+    private int idReserva;
+    private int numMesa;
+    private int idGarcom;
+    private String nomeGarcom;
+    private String telefoneCliente;
+    private String nomeCliente;
+    private String dataReserva;
+    private String horaReserva;
+    private final GerenciarPessoa pessoa;
 
-	public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa) {
-		this.dataReserva = dataReserva;
-		this.horaReserva = horaReserva;
-		this.telefoneCliente = telefoneCliente;
-		this.nomeCliente = nomeCliente;
-		this.numMesa = numMesa;
-	}
 
-	@Override
-	public int getId() {
-		return idReserva;
-	}
+    public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa, GerenciarPessoa pessoa) {
+        this.dataReserva = dataReserva;
+        this.horaReserva = horaReserva;
+        this.telefoneCliente = telefoneCliente;
+        this.nomeCliente = nomeCliente;
+        this.numMesa = numMesa;
+        this.pessoa = pessoa;
 
-	public String getTelefoneCliente() {
-		return telefoneCliente;
-	}
+        Garcom g = escolherGarcom();
+        if (g != null) {
+            this.idGarcom = g.getId();
+            this.nomeGarcom = g.getNome();
+        } else {
+            System.out.println("Nao foi possivel reservar um garcom.");
+        }
+    }
 
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
+    private Garcom escolherGarcom() {
 
-	public String getDataReserva() {
-		return dataReserva;
-	}
+        if (pessoa.getListaGarcom() == null || pessoa.getListaGarcom().isEmpty()) {
+            System.out.println("A lista de garcons está vazia.");
+            return null;
+        }
 
-	public String getHoraReserva() {
-		return horaReserva;
-	}
+        System.out.println("Total garcons: " + pessoa.getListaGarcom().size());
+        for (Garcom g : pessoa.getListaGarcom()) {
+            System.out.println("Garcom ID: " + g.getId() + ", Ocupado: " + g.isOcupado());
+            if (!g.isOcupado()) {
+                g.setOcupado(true);
+                System.out.println("Garcom escolhido: ID " + g.getId());
+                return g;
+            }
+        }
 
-	public int getNumMesa() {
-		return numMesa;
-	}
+        System.out.println("Nao existe garcom disponivel");
+        return null;
 
-	public void setTelefoneCliente(String telefoneCliente) {
-		this.telefoneCliente = telefoneCliente;
-	}
+    }
 
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
+    @Override
+    public int getId() {
+        return idReserva;
+    }
 
-	public void setDataReserva(String dataReserva) {
-		this.dataReserva = dataReserva;
-	}
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
 
-	public void setHoraReserva(String horaReserva) {
-		this.horaReserva = horaReserva;
-	}
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
 
-	public void setNumMesa(int numMesa) {
-		this.numMesa = numMesa;
-	}
+    public String getDataReserva() {
+        return dataReserva;
+    }
 
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
-	}
+    public String getHoraReserva() {
+        return horaReserva;
+    }
+
+    public int getNumMesa() {
+        return numMesa;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public void setDataReserva(String dataReserva) {
+        this.dataReserva = dataReserva;
+    }
+
+    public void setHoraReserva(String horaReserva) {
+        this.horaReserva = horaReserva;
+    }
+
+    public void setNumMesa(int numMesa) {
+        this.numMesa = numMesa;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+
+    public int getIdGarcom() {
+        return idGarcom;
+    }
+
+    public String getNomeGarcom() {
+        return nomeGarcom;
+    }
 
 }

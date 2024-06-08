@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import com.artur.gerenciamento.GerenciarPessoa;
 import com.artur.interfaces.Identificacao;
 
-public class Gerente extends GerenciarPessoa implements Identificacao{
+public class Gerente extends GerenciarPessoa implements Identificacao {
 
-	private String nome;
-	private int idGerente;
+    private String nome;
+    private int idGerente;
 
-	public Gerente(String nome) {
-		this.nome = nome;
-	}
+    public Gerente(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public int getId() {
-		return idGerente;
-	}
+    @Override
+    public int getId() {
+        return idGerente;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
 }
