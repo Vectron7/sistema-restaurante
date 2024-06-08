@@ -17,7 +17,6 @@ public class Reserva implements Identificacao {
 		this.telefoneCliente = telefoneCliente;
 		this.nomeCliente = nomeCliente;
 		this.numMesa = numMesa;
-
 	}
 
 	@Override

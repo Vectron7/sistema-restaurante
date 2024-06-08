@@ -20,18 +20,6 @@ public class Cliente extends GerenciarPessoa implements Identificacao{
 		this.telefone = telefone;
 	}
 
-	@Override
-	public void listar(ArrayList<?> lista) {
-
-		for (Object obj : lista) {
-			if (obj instanceof Cliente) {
-				Cliente cliente = (Cliente) obj;
-				System.out.println("ID: " + cliente.getId() + " | Nome: " + cliente.getNome() + " | Endereco: "+ cliente.getEndereco() + " | Telefone: " + cliente.getTelefone() + " | Data de Nascimento: "+ cliente.getDataNasc());
-			}
-		}
-
-	}
-
 	public String getEndereco() {
 		return endereco;
 	}

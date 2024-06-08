@@ -19,10 +19,6 @@ public class Gerente extends GerenciarPessoa implements Identificacao{
 		return idGerente;
 	}
 
-	public void listar(ArrayList<?> lista) {
-		// Implementar logica para listar o gerente (Verifique a classe cliente para se inspirar na implementação)
-	}
-
 	public String getNome() {
 		return nome;
 	}

@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import com.artur.controle.Reserva;
 import com.artur.interfaces.Listagem;
 import com.artur.estabelecimento.Mesa;
+import com.artur.pessoas.Garcom;
+
 
 public class GerenciarReservas implements Listagem {
 
-	private ArrayList<Reserva> listaReservas;
+	GerenciarPessoa pessoa = new GerenciarPessoa();;
+	private final ArrayList<Reserva> listaReservas;
 	private int ultimoIdReserva = 1;
 
 	public GerenciarReservas() {
+
 		this.listaReservas = new ArrayList<>();
 	}
 
@@ -19,7 +23,6 @@ public class GerenciarReservas implements Listagem {
 
 		reserva.setIdReserva(this.ultimoIdReserva++);
 		listaReservas.add(reserva);
-
 	}
 
 	public void cancelarReserva(int canIdReserva, ArrayList<Mesa> listaMesas) {
@@ -59,7 +62,7 @@ public class GerenciarReservas implements Listagem {
 	public void listar() {
 
 		for (Reserva reserva : listaReservas) {
-			System.out.println("ID: " + reserva.getId() + " | Num. Mesa: " + reserva.getNumMesa() + " | Nome: "
+			System.out.println("ID: " + reserva.getId() + " | Num. Mesa: " + reserva.getNumMesa() + " | Nome do Cliente: "
 					+ reserva.getNomeCliente() + " | Telefone: " + reserva.getTelefoneCliente() + " | Data e Hora: "
 					+ reserva.getDataReserva() + " " + reserva.getHoraReserva());
 
@@ -69,10 +72,6 @@ public class GerenciarReservas implements Listagem {
 
 	public ArrayList<Reserva> getListaReservas() {
 		return listaReservas;
-	}
-
-	public void setListaReservas(ArrayList<Reserva> listaReservas) {
-		this.listaReservas = listaReservas;
 	}
 
 }

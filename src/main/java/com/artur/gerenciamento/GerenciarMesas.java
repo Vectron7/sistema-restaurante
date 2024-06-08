@@ -15,7 +15,7 @@ public class GerenciarMesas implements Listagem {
 		criarMesa();
 	}
 
-	private void criarMesa() {
+	protected void criarMesa() {
 
 		adicionarMesa(new Mesa(2));
 		adicionarMesa(new Mesa(4));

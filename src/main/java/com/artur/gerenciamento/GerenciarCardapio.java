@@ -18,10 +18,9 @@ public class GerenciarCardapio implements Listagem {
 
 	public GerenciarCardapio() {
 		this.cardapio = new LinkedHashMap<>();
-		gerarItems();
 	}
 
-	private void gerarItems() {
+	protected void gerarItems() {
 
 		cardapio.put("Pratos Principais", new ArrayList<>());
 		cardapio.put("Acompanhamentos", new ArrayList<>());

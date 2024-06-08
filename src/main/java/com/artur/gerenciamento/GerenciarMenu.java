@@ -1,5 +1,7 @@
 package com.artur.gerenciamento;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,9 +9,10 @@ import com.artur.controle.ItemCardapio;
 import com.artur.controle.Reserva;
 import com.artur.estabelecimento.Mesa;
 import com.artur.pessoas.Cliente;
+import com.artur.pessoas.Garcom;
 
-//OBS: as funções inserirInt e inserirDouble, são funções que pega a entrada do usuario verifica se é um int ou double e retorna ela, se n for ele pede
-//que o usuario insira denovo até acertar (essas funções evitam que o codigo pare se um valor diferente do que é requisitado seja inserido.
+//OBS: as funções inserirInt e inserirDouble, são funções que pega a entrada do usuário verifica se é um int ou double e retorna ela, se não for ele pede
+//que o usuário insira de novo até acertar (essas funções evitam que o config pare se um valor diferente do que é requisitado seja inserido).
 
 		public class GerenciarMenu {
 
@@ -17,7 +20,13 @@ import com.artur.pessoas.Cliente;
 	GerenciarMesas mesa = new GerenciarMesas();
 	GerenciarReservas reserva = new GerenciarReservas();
 	GerenciarPessoa pessoa = new GerenciarPessoa();
-	Cliente cliente = new Cliente("", "", "", "");
+
+	public GerenciarMenu(){
+		pessoa.gerarGarcom();
+		mesa.criarMesa();
+		pessoa.adicionarCliente(new Cliente("Artur", "Jardins", "1234-5678", "2020"));
+		cardapio.gerarItems();
+	}
 
 	public int inserirInt(Scanner scanner) {
 		int num = 0;
@@ -30,6 +39,23 @@ import com.artur.pessoas.Cliente;
 			} catch (InputMismatchException e) {
 				System.out.println("Entrada invalida. Por favor, digite um numero valido");
 				scanner.next();
+			}
+		}
+
+		return num;
+	}
+
+	public float inserirFloat(Scanner scanner) {
+		float num = 0;
+		boolean valido = false;
+
+		while (!valido) {
+			try {
+				num = scanner.nextFloat();
+						valido = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Entrada invalida. Por favor, digite um numero valido");
+						scanner.next();
 			}
 		}
 
@@ -56,7 +82,7 @@ import com.artur.pessoas.Cliente;
 	// Menu da Recepção
 
 	public void menuRecepcao(Scanner sc) {
-		boolean recepcao = true;
+		int opcaoRecepcao;
 
 		do {
 			System.out.println("========== RECEPÇÃO ==========");
@@ -65,10 +91,9 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoRecepcao = inserirInt(sc);
+			opcaoRecepcao = inserirInt(sc);
 
 			if (opcaoRecepcao == 0) {
-				recepcao = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -83,14 +108,14 @@ import com.artur.pessoas.Cliente;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
-		} while (recepcao);
+		} while (opcaoRecepcao != 0);
 	}
 
 	// Menu de Reservas
 
 	public void menuReservas(Scanner sc) {
-		boolean reservas = true;
-		int temp = 0;
+		int opcaoReserva;
+		int temp;
 
 		do {
 			System.out.println("========== RESERVAS ==========");
@@ -101,10 +126,9 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoReserva = inserirInt(sc);
+			opcaoReserva = inserirInt(sc);
 
 			if (opcaoReserva == 0) {
-				reservas = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -137,8 +161,8 @@ import com.artur.pessoas.Cliente;
 				}
 
 				System.out.println("========== Clientes e Mesas ==========\n");
-				cliente.listar(pessoa.getListaClientes());
-				;
+				pessoa.listarCliente();
+
 				System.out.print("\n");
 				mesa.listar();
 
@@ -184,8 +208,7 @@ import com.artur.pessoas.Cliente;
 				System.out.println("Insira o Horario (HH:MM): ");
 				String horaReserva = sc.nextLine();
 
-				reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(),
-						clienteSelec.getTelefone(), mesaSelec.getId()));
+				reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(), clienteSelec.getTelefone(), mesaSelec.getId()));
 				mesaSelec.reservar();
 
 				break;
@@ -277,12 +300,11 @@ import com.artur.pessoas.Cliente;
 								if (mesaAtual != null) {
 									mesaAtual.setStatusMesa(true);
 								}
-								break;
-							} else {
+                            } else {
 								mesaNova = mesinha;
-								break;
-							}
-						}
+                            }
+                            break;
+                        }
 					}
 
 					if (mesaNova != null) {
@@ -346,13 +368,13 @@ import com.artur.pessoas.Cliente;
 					System.out.println("Opção inserida inválida. Tente novamente.");
 				}
 			}
-		} while (reservas);
+		} while (opcaoReserva != 0);
 	}
 
 	// Menu de Mesas
 
 	public void menuMesas(Scanner sc) {
-		boolean mesas = true;
+		int opcaoMesa;
 
 		do {
 			System.out.println("========== MESAS ==========");
@@ -362,10 +384,9 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("===========================");
 
-			int opcaoMesa = inserirInt(sc);
+			opcaoMesa = inserirInt(sc);
 
 			if (opcaoMesa == 0) {
-				mesas = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -380,19 +401,21 @@ import com.artur.pessoas.Cliente;
 				}
 				break;
 			case 2:
+				System.out.println("========== Adicionar Mesa ==========");
 				break;
 			case 3:
+				System.out.println("========== Remover Mesa ==========");
 				break;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
-		} while (mesas);
+		} while (opcaoMesa != 0);
 	}
 
 	// Menu de Cadastros
 
 	public void menuCadastros(Scanner sc) {
-		boolean cadastros = true;
+		int opcaoCadastros;
 
 		do {
 			System.out.println("========== Cadastros ==========");
@@ -402,10 +425,9 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - Voltar");
 			System.out.println("===============================");
 
-			int opcaoCadastros = inserirInt(sc);
+			opcaoCadastros = inserirInt(sc);
 
 			if (opcaoCadastros == 0) {
-				cadastros = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -415,21 +437,23 @@ import com.artur.pessoas.Cliente;
 				menuClientes(sc);
 				break;
 			case 2:
+				menuGarcom(sc);
 				break;
 			case 3:
+				menuGerente(sc);
 				break;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
 
-		} while (cadastros);
+		} while (opcaoCadastros != 0);
 	}
 
 	// Menu de Clientes
 
 	public void menuClientes(Scanner sc) {
-		boolean clientes = true;
-		int temp = 0;
+		int opcaoCliente;
+		int temp;
 
 		do {
 			System.out.println("========== CLIENTES ==========");
@@ -440,11 +464,10 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoCliente = inserirInt(sc);
+			opcaoCliente = inserirInt(sc);
 			sc.nextLine();
 
 			if (opcaoCliente == 0) {
-				clientes = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -462,6 +485,7 @@ import com.artur.pessoas.Cliente;
 				String nascCliente = sc.nextLine();
 
 				pessoa.adicionarCliente(new Cliente(cadNomeCliente, enderecoCliente, cadTelefoneCliente, nascCliente));
+				System.out.println("Cliente cadastrado com sucesso");
 
 				break;
 			case 2:
@@ -473,7 +497,7 @@ import com.artur.pessoas.Cliente;
 				}
 
 				System.out.println("========== Cancelar Cliente ==========");
-				cliente.listar(pessoa.getListaClientes());
+				pessoa.listarCliente();
 
 				System.out.println("\nInsira o ID do Cliente ou digite (0) para voltar: ");
 				int canIdCliente = inserirInt(sc);
@@ -500,7 +524,7 @@ import com.artur.pessoas.Cliente;
 				if (pessoa.getListaClientes().isEmpty()) {
 					System.out.println("Nenhum cliente registrado.");
 				} else {
-					cliente.listar(pessoa.getListaClientes());
+					pessoa.listarCliente();
 				}
 				break;
 			case 4:
@@ -512,7 +536,7 @@ import com.artur.pessoas.Cliente;
 				}
 
 				System.out.println("========== Modificar Cliente ==========");
-				cliente.listar(pessoa.getListaClientes());
+				pessoa.listarCliente();
 
 				System.out.println("\nInsira o ID do Cliente ou digite (0) para voltar: ");
 				int modIdCliente = inserirInt(sc);
@@ -603,13 +627,14 @@ import com.artur.pessoas.Cliente;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
-		} while (clientes);
+		} while (opcaoCliente != 0);
 	}
 
 	// Menu do Garçom
 
 	public void menuGarcom(Scanner sc) {
-		boolean garcom = true;
+		int opcaoGarcom;
+		int temp = 0;
 
 		do {
 			System.out.println("========== GARCOM ==========");
@@ -620,34 +645,173 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoGarcom = inserirInt(sc);
+			opcaoGarcom = inserirInt(sc);
 			sc.nextLine();
 
 			if (opcaoGarcom == 0) {
-				garcom = false;
 				System.out.println("Voltando...");
+				break;
 			}
 
 			switch (opcaoGarcom) {
 			case 1:
+				System.out.println("========== Cadastrar Garcom ==========");
+				System.out.println("Insira o nome do Garcom: ");
+				String cadNomeGarcom = sc.nextLine();
+				System.out.println("Insira o Endereco: ");
+				String enderecoGarcom = sc.nextLine();
+				System.out.println("Insira o Telefone");
+				String cadTelefoneGarcom = sc.nextLine();
+				System.out.println("Insira o Salario");
+				float salario = inserirFloat(sc);
+
+				pessoa.adicionarGarcom(new Garcom(cadNomeGarcom, enderecoGarcom, cadTelefoneGarcom, salario));
+                System.out.println("Garcom cadastrado com sucesso");
 				break;
 			case 2:
+				temp = 0;
+
+				if (pessoa.getListaGarcom().isEmpty()) {
+					System.out.println("Nenhum Garcom Registrado");
+					break;
+				}
+
+				System.out.println("========== Remover Garcom ==========");
+				pessoa.listarGarcom();
+
+				System.out.println("\nInsira o ID do Garcom ou digite (0) para voltar: ");
+				int canIdGarcom = inserirInt(sc);
+
+				if (canIdGarcom == 0) {
+					System.out.println("Voltando...");
+					break;
+				}
+
+				for (Garcom g : pessoa.getListaGarcom()) {
+					if (canIdGarcom == g.getId()) {
+						temp = temp + 1;
+					}
+				}
+
+				if (temp == 0) {
+					System.out.println("ID INVALIDO OU NAO ENCONTRADO.");
+					break;
+				}
+
+				pessoa.removerGarcom(canIdGarcom);
 				break;
 			case 3:
+				System.out.println("========== Listar Garcom ==========");
+				pessoa.listarGarcom();
 				break;
 			case 4:
+				temp = 0;
+
+				if (pessoa.getListaGarcom().isEmpty()) {
+					System.out.println("Nenhum Garcom Registrado");
+					break;
+				}
+
+				System.out.println("========== Modificar Garcom ==========");
+				pessoa.listarGarcom();
+
+				System.out.println("\nInsira o ID do Garcom ou digite (0) para voltar: ");
+				int modIdGarcom = inserirInt(sc);
+
+				if (modIdGarcom == 0) {
+					System.out.println("Voltando...");
+					break;
+				}
+
+				for (Garcom g : pessoa.getListaGarcom()) {
+					if (modIdGarcom == g.getId()) {
+						temp = temp + 1;
+					}
+				}
+
+				if (temp == 0) {
+					System.out.println("ID INVALIDO OU NAO ENCONTRADO.");
+					break;
+				}
+
+				System.out.println("O Que deseja modificar?");
+				System.out.println("1 - Nome\n2 - Endereco\n3 - Telefone\n4 - Salario");
+
+				int modOpcao = inserirInt(sc);
+				sc.nextLine();
+
+				switch (modOpcao) {
+					case 1:
+						System.out.print("Insira o novo nome: ");
+						String novoNome = sc.nextLine();
+
+						for (Garcom g : pessoa.getListaGarcom()) {
+							if (modIdGarcom == g.getId()) {
+								String nomeTemp = g.getNome();
+								g.setNome(novoNome);
+								System.out.println("Nome: " + nomeTemp + " Modificado para: " + g.getNome());
+								break;
+							}
+						}
+
+						break;
+					case 2:
+						System.out.print("Insira o novo endereco: ");
+						String novoEndereco = sc.nextLine();
+
+						for (Garcom g : pessoa.getListaGarcom()) {
+							if (modIdGarcom == g.getId()) {
+								String enderecoTemp = g.getEndereco();
+								g.setEndereco(novoEndereco);
+								System.out.println("Nome: " + enderecoTemp + " Modificado para: " + g.getEndereco());
+								break;
+							}
+						}
+
+						break;
+					case 3:
+						System.out.print("Insira o novo telefone: ");
+						String novoTelefone = sc.nextLine();
+
+						for (Garcom g : pessoa.getListaGarcom()) {
+							if (modIdGarcom == g.getId()) {
+								String telefoneTemp = g.getTelefone();
+								g.setTelefone(novoTelefone);
+								System.out.println("Nome: " + telefoneTemp + " Modificado para: " + g.getTelefone());
+								break;
+							}
+						}
+
+						break;
+					case 4:
+						System.out.print("Insira o novo salario: ");
+						float novoSalario = inserirFloat(sc);
+
+						for (Garcom g : pessoa.getListaGarcom()) {
+							if (modIdGarcom == g.getId()) {
+								float novoSalarioTemp = g.getSalario();
+								g.setSalario(novoSalario);
+								System.out.println("Nome: " + novoSalarioTemp + " Modificado para: " + g.getSalario());
+								break;
+							}
+						}
+
+						break;
+					default:
+						System.out.println("Opção inserida inválida.");
+				}
 				break;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
 
-		} while (garcom);
+		} while (opcaoGarcom != 0);
 	}
 
 	// Menu do Gerente
 
 	public void menuGerente(Scanner sc) {
-		boolean gerente = true;
+		int opcaoGerente;
 
 		do {
 			System.out.println("========== GERENTE ==========");
@@ -658,34 +822,37 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoGerente = inserirInt(sc);
+			opcaoGerente = inserirInt(sc);
 			sc.nextLine();
 
 			if (opcaoGerente == 0) {
-				gerente = false;
 				System.out.println("Voltando...");
 			}
 
 			switch (opcaoGerente) {
 			case 1:
+				System.out.println("========== Cadastrar Gerente ==========");
 				break;
 			case 2:
+				System.out.println("========== Remover Gerente ==========");
 				break;
 			case 3:
+				System.out.println("========== Mostrar Gerente ==========");
 				break;
 			case 4:
+				System.out.println("========== Modificar Gerente ==========");
 				break;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
 
-		} while (gerente);
+		} while (opcaoGerente != 0);
 	}
 
 	// Menu do Cardapio
 
 	public void menuCardapio(Scanner sc) {
-		boolean card = true;
+		int opcaoCardapio;
 
 		do {
 			System.out.println("========== CARDÁPIO ==========");
@@ -695,10 +862,9 @@ import com.artur.pessoas.Cliente;
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
-			int opcaoCardapio = inserirInt(sc);
+			opcaoCardapio = inserirInt(sc);
 
 			if (opcaoCardapio == 0) {
-				card = false;
 				System.out.println("Voltando...");
 				break;
 			}
@@ -808,48 +974,46 @@ import com.artur.pessoas.Cliente;
 			default:
 				System.out.println("Opção inserida inválida. Tente novamente.");
 			}
-		} while (card);
+		} while (opcaoCardapio != 0);
 	}
 
 	// Menu de Pedidos
 
 	public void menuPedido(Scanner sc) {
-		boolean pedido = true;
+		int opcaoPedido;
 
 		do {
 			System.out.println("========== PEDIDO ==========");
 			System.out.println("0 - Voltar");
 			System.out.println("============================");
 
-			int opcaoPedido = inserirInt(sc);
+			opcaoPedido = inserirInt(sc);
 
 			if (opcaoPedido == 0) {
-				pedido = false;
 				System.out.println("Voltando...");
 				break;
 			}
 
-		} while (pedido);
+		} while (opcaoPedido != 0);
 	}
 
 	// Menu da Cozinha
 
 	public void menuCozinha(Scanner sc) {
-		boolean cozinha = true;
+		int opcaoCozinha;
 
 		do {
 			System.out.println("========== COZINHA ==========");
 			System.out.println("0 - VOLTAR");
 			System.out.println("=============================");
 
-			int opcaoCozinha = inserirInt(sc);
+			opcaoCozinha = inserirInt(sc);
 
 			if (opcaoCozinha == 0) {
-				cozinha = false;
 				System.out.println("Voltando...");
 				break;
 			}
-		} while (cozinha);
+		} while (opcaoCozinha != 0);
 	}
 
 }

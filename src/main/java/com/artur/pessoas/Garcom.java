@@ -1,5 +1,7 @@
 package com.artur.pessoas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.artur.gerenciamento.GerenciarPessoa;
@@ -8,19 +10,23 @@ import com.artur.interfaces.Identificacao;
 public class Garcom extends GerenciarPessoa implements Identificacao {
 
 	private String nome;
-	private float salario;
 	private String dataContratacao;
+	private String endereco;
+	private String telefone;
+	private float salario;
 	private int idGarcom;
+	private boolean ocupado;
 
-	public Garcom(String nome, float salario, String dataContratacao) {
+	public Garcom(String nome, String endereco, String telefone, float salario) {
+		LocalDate hoje = LocalDate.now();
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String dataFormatada = hoje.format(formatador);
+
 		this.nome = nome;
 		this.salario = salario;
-		this.dataContratacao = dataContratacao;
-	}
-
-	public void listar(ArrayList<?> lista) {
-		// Implementar logica para listar os garçom (Verifique a classe cliente para se
-				// inspirar na implementação)
+		this.dataContratacao = dataFormatada;
+		this.endereco = endereco;
+		this.telefone = telefone;
 	}
 
 	public float getSalario() {
@@ -56,4 +62,27 @@ public class Garcom extends GerenciarPessoa implements Identificacao {
 		this.nome = nome;
 	}
 
+	public boolean isOcupado() {
+		return ocupado;
+	}
+
+	public void setOcupado(boolean ocupado) {
+		this.ocupado = ocupado;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 }

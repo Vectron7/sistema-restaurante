@@ -1,7 +1,5 @@
 package com.artur.interfaces;
 
-import java.util.ArrayList;
-
 import com.artur.pessoas.Cliente;
 import com.artur.pessoas.Garcom;
 import com.artur.pessoas.Gerente;
@@ -20,6 +18,10 @@ public interface Pessoa {
 
     void removerGerente(int IdGerente);
     
-    void listar(ArrayList<?> lista);
+    void listarCliente();
+
+    void listarGarcom();
+
+    void listarGerente();
 
 }

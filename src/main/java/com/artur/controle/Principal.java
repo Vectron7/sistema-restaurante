@@ -12,17 +12,17 @@
 		import java.util.Scanner;
 
 		import com.artur.gerenciamento.GerenciarMenu;
+		import com.artur.gerenciamento.GerenciarPessoa;
 
-		public class Principal {
+public class Principal {
 
 			public static void main(String[] args) {
 
-				boolean saida = true;
+				GerenciarMenu menu = new GerenciarMenu();
+
 				int opcao;
 
 				Scanner sc = new Scanner(System.in);
-
-				GerenciarMenu menu = new GerenciarMenu();
 
 				do {
 					System.out.println("========== RESTAURANTE ==========");
@@ -37,7 +37,6 @@
 					opcao = menu.inserirInt(sc);
 
 					if (opcao == 0) {
-						saida = false;
 						System.out.println("Saindo...");
 						break;
 					}
@@ -61,7 +60,7 @@
 					default:
 						System.out.println("Opcao inserida invalida. Tente Novamente.");
 					}
-				} while (saida);
+				} while (opcao != 0);
 
 				sc.close();
 			}
