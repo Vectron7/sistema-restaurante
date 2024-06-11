@@ -33,7 +33,7 @@ public class GerenciadorMenu {
 		this.reserva = new GerenciadorReservas();
 		this.pessoa = new GerenciadorDePessoas();
 		this.caixa = new Pagamento();
-
+		pessoa.adicionarCliente(new Cliente("Artur", "Jardins", "1234-5678", "06-09-2004"));
 	}
 
 	public int inserirInt(Scanner scanner) {
@@ -165,15 +165,8 @@ public class GerenciadorMenu {
 			System.out.println("2 - Fazer o Pedido");
 			System.out.println("3 - Ir Para o Pagamento");
 
-			System.out.println("0 - Cancelar");
-
 			opcao2 = inserirInt(sc);
 			sc.nextLine();
-
-			if (opcao2 == 0) {
-				System.out.println("Cancelando...");
-				return;
-			}
 
 			switch (opcao2) {
 			case 1:
@@ -183,7 +176,6 @@ public class GerenciadorMenu {
 				menuFazerPedido(cliente, sc);
 				break;
 			case 3:
-				// Fazer Logica de Pagamento
 				if (cozinha.getPedidosProntos().isEmpty()) {
 					System.out.println("Nenhum pedido foi realizado.");
 					break;
@@ -205,13 +197,6 @@ public class GerenciadorMenu {
 		} while (opcao2 != 0);
 	}
 
-	// Sub Menu Pagamentos
-
-	public void subMenuPagamentos(Scanner sc, Cliente cliente) {
-		caixa.listarPedidosParaPagar(sc, pessoa, cozinha, cliente.getId());
-		caixa.fazerPagamento(sc);
-	}
-
 	// Menu Fazer Pedido
 
 	protected void menuFazerPedido(Cliente cliente, Scanner sc) {
@@ -224,7 +209,7 @@ public class GerenciadorMenu {
 			opcaoCategoria = inserirInt(sc);
 			sc.nextLine();
 
-			ItemPedido novoPedido = null;
+			ItemPedido novoPedido;
 
 			switch (opcaoCategoria) {
 			case 1:
@@ -313,6 +298,14 @@ public class GerenciadorMenu {
 
 		return novoPedido;
 	}
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 	// Menu de Administração
 
@@ -472,6 +465,13 @@ public class GerenciadorMenu {
 			}
 		} while (opcaoCaixa != 0);
 
+	}
+
+	// Sub Menu Pagamentos
+
+	public void subMenuPagamentos(Scanner sc, Cliente cliente) {
+		caixa.listarPedidosParaPagar(sc, pessoa, cozinha, cliente.getId());
+		caixa.fazerPagamento(sc);
 	}
 
 	// Menu de Reservas
@@ -747,8 +747,7 @@ public class GerenciadorMenu {
 		if (g == null) {
 			return false;
 		}
-		reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(),
-				clienteSelec.getTelefone(), mesaSelec.getId(), g));
+		reserva.adicionarReserva(new Reserva(dataReserva, horaReserva, clienteSelec.getNome(), clienteSelec.getTelefone(), mesaSelec.getId(), g, idCliente));
 		mesaSelec.reservar();
 
 		return true;
@@ -1079,7 +1078,7 @@ public class GerenciadorMenu {
 
 	public Cliente subMenuClienteCadastro(Scanner sc) {
 
-		Cliente cliente = null;
+		Cliente cliente;
 		System.out.println("========== Cadastrar Cliente ==========");
 		System.out.println("Insira o nome do cliente: ");
 		String cadNomeCliente = sc.nextLine();
@@ -1307,7 +1306,7 @@ public class GerenciadorMenu {
 
 				break;
 			case 2:
-				Gerente gerente = null;
+				Gerente gerente;
 				System.out.println("========== Cadastrar Gerente ==========");
 				System.out.println("Insira o nome do Gerente: ");
 				String cadNomeGerente = sc.nextLine();
@@ -1450,7 +1449,6 @@ public class GerenciadorMenu {
 			System.out.println("1 - Mostrar Cardápio");
 			System.out.println("2 - Adicionar Item");
 			System.out.println("3 - Remover Item");
-			System.out.println("4 - Modificar Cardapio");
 			System.out.println("0 - VOLTAR");
 			System.out.println("==============================");
 
@@ -1626,6 +1624,21 @@ public class GerenciadorMenu {
 				}
 
 				if (!certoC) {
+					System.out.println("Id não encontrado");
+					break;
+				}
+
+				boolean verificarReserva = false;
+				for(Reserva r : reserva.getListaReservas()){
+					if(r.getIdCliente() == idCliente){
+						verificarReserva = true;
+						System.out.println("Reserva encontrada");
+						break;
+					}
+				}
+
+				if(!verificarReserva){
+					System.out.println("Reserva não encontrada");
 					break;
 				}
 
@@ -1638,7 +1651,7 @@ public class GerenciadorMenu {
 					opcaoCategoria = inserirInt(sc);
 					sc.nextLine();
 
-					ItemPedido novoPedido = null;
+					ItemPedido novoPedido;
 
 					switch (opcaoCategoria) {
 					case 1:
@@ -1667,7 +1680,7 @@ public class GerenciadorMenu {
 						sc.nextLine();
 
 						if (continuar1 == 1) {
-							cozinha.adicionarPedidoEmPendente(novoPedido);
+							cozinha.marcarPedidoEmPendente(novoPedido);
 						} else if (continuar1 == 2) {
 							pedidos.removerItem(novoPedido.getId());
 						}

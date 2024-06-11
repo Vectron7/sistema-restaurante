@@ -20,16 +20,16 @@ public class GerenciadorPedidos implements Listagem {
     public void adicionarItem(ItemPedido item) {
         boolean itemExistente = false;
 
-        if (listaPedidos != null) {
-            for (ItemPedido i : listaPedidos) {
-                // Verifica se o item já existe na lista e pertence ao mesmo cliente
-                if (item.getIdItemCardapio() == i.getIdItemCardapio() && item.getIdCliente() == i.getIdCliente()) {
-                    i.setQuantidade(i.getQuantidade() + item.getQuantidade());
-                    itemExistente = true;
-                    break;
-                }
+
+        for (ItemPedido i : listaPedidos) {
+            // Verifica se o item já existe na lista e pertence ao mesmo cliente
+            if (item.getIdItemCardapio() == i.getIdItemCardapio() && item.getIdCliente() == i.getIdCliente()) {
+                i.setQuantidade(i.getQuantidade() + item.getQuantidade());
+                itemExistente = true;
+                break;
             }
         }
+
 
         if (itemExistente) {
             return;

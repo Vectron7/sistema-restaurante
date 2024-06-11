@@ -8,6 +8,7 @@ public class Reserva implements Identificacao {
     private int idReserva;
     private int numMesa;
     private int idGarcom;
+    private int idCliente;
     private String nomeGarcom;
     private String telefoneCliente;
     private String nomeCliente;
@@ -16,7 +17,7 @@ public class Reserva implements Identificacao {
 
 
 
-    public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa, Garcom g) {
+    public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa, Garcom g, int idCliente) {
         this.dataReserva = dataReserva;
         this.horaReserva = horaReserva;
         this.telefoneCliente = telefoneCliente;
@@ -24,7 +25,7 @@ public class Reserva implements Identificacao {
         this.numMesa = numMesa;
         this.idGarcom = g.getId();
         this.nomeGarcom = g.getNome();
-
+        this.idCliente = idCliente;
     }
 
 
@@ -54,6 +55,18 @@ public class Reserva implements Identificacao {
         return numMesa;
     }
 
+    public int getIdGarcom() {
+        return idGarcom;
+    }
+
+    public String getNomeGarcom() {
+        return nomeGarcom;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
     public void setTelefoneCliente(String telefoneCliente) {
         this.telefoneCliente = telefoneCliente;
     }
@@ -78,12 +91,8 @@ public class Reserva implements Identificacao {
         this.idReserva = idReserva;
     }
 
-    public int getIdGarcom() {
-        return idGarcom;
-    }
 
-    public String getNomeGarcom() {
-        return nomeGarcom;
-    }
+
+
 
 }
