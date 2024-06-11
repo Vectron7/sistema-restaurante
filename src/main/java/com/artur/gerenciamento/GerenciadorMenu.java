@@ -192,11 +192,9 @@ public class GerenciadorMenu {
 					System.out.println("O atendimento foi finalizado. Obrigado por escolher "
 							+ restaurante.getNOME_RESTAURANTE() + "!");
 					caixa.getPedidosPagos().addAll(cozinha.getPedidosProntos());
-					for (ItemPedido p : cozinha.getPedidosProntos()) {
-						if (p.getIdCliente() == cliente.getId()) {
-							cozinha.getPedidosProntos().remove(p);
-						}
-					}
+					Cliente finalCliente = cliente;
+					cozinha.getPedidosProntos().removeIf(pedido -> pedido.getIdCliente() == finalCliente.getId());
+
 					opcao2 = 0;
 				}
 
