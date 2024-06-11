@@ -1,8 +1,9 @@
-// Faltam fazer: "Gerente?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+// Faltam fazer:  (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
 // Herança (ja usado), Polimorfismo (Ja usado), abstração (Ja Usado), interface (Ja usado)
 
 // Corrigir: quando cancelo depois de fazer a reserva no atendimento, a reserva ainda continua la e a mesa e garçom continuam ocupados
-// Corrigir o erro de duplicação na qnt de item na hora de fazer pedido repetido na cozinha
+//e se tentar continuar da erro de cliente null
+// Corrigir: erro de duplicação na qnt de item na hora de fazer pedido repetido na cozinha
 // Fazer o modificar Cardapio
 // Comentar o codigo inteiro explicando oque cada coisa faz
 
