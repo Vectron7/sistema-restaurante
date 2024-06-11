@@ -21,10 +21,6 @@ public class Mesa implements Identificacao {
         statusMesa = true;
     }
 
-    public void liberar() {
-        statusMesa = false;
-    }
-
     @Override
     public int getId() {
         return idMesa;

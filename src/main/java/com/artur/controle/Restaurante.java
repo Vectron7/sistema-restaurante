@@ -1,8 +1,6 @@
 package com.artur.controle;
 
-import com.artur.gerenciamento.GerenciadorCardapio;
 import com.artur.gerenciamento.GerenciadorMesas;
-import com.artur.gerenciamento.GerenciadorDePessoas;
 import com.artur.pessoas.Gerente;
 
 public class Restaurante {
@@ -12,14 +10,8 @@ public class Restaurante {
     private static final String TELEFONE = "(11) 1234-5678";
     private static final String CNPJ = "12.345.678/0001-90";
 
-    GerenciadorDePessoas pessoa = new GerenciadorDePessoas();
-    GerenciadorCardapio cardapio = new GerenciadorCardapio();
     GerenciadorMesas mesa = new GerenciadorMesas();
     Gerente gerente;
-
-    private void selecionarPedido(int idPedido){
-
-    }
 
     private int contMesaDisponiveis(){
         int cont = 0;

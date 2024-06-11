@@ -2,7 +2,6 @@ package com.artur.controle;
 
 import com.artur.gerenciamento.GerenciadorCozinha;
 import com.artur.gerenciamento.GerenciadorDePessoas;
-import com.artur.gerenciamento.GerenciadorMenu;
 import com.artur.interfaces.Listagem;
 import com.artur.interfaces.MetodosPagamento;
 import com.artur.pessoas.Cliente;
@@ -19,8 +18,7 @@ public abstract class Caixa implements MetodosPagamento, Listagem {
         this.pedidosPagos = new ArrayList<>();
     }
 
-    public void listarPedidosParaPagar(Scanner sc, GerenciadorDePessoas pessoa, GerenciadorCozinha cozinha, int idCliente){
-        GerenciadorMenu menu = new GerenciadorMenu();
+    public void listarPedidosParaPagar(GerenciadorDePessoas pessoa, GerenciadorCozinha cozinha, int idCliente){
         boolean checar = false;
         pessoa.listarCliente();
 

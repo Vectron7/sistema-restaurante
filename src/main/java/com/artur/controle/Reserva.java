@@ -7,9 +7,9 @@ public class Reserva implements Identificacao {
 
     private int idReserva;
     private int numMesa;
-    private int idGarcom;
-    private int idCliente;
-    private String nomeGarcom;
+    private final int idGarcom;
+    private final int idCliente;
+    private final String nomeGarcom;
     private String telefoneCliente;
     private String nomeCliente;
     private String dataReserva;

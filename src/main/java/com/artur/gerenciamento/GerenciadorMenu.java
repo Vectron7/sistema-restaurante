@@ -445,7 +445,7 @@ public class GerenciadorMenu {
 				}
 
 				if (!listaPedidos.isEmpty()) {
-					caixa.listarPedidosParaPagar(sc, pessoa, cozinha, idCliente);
+					caixa.listarPedidosParaPagar(pessoa, cozinha, idCliente);
 					caixa.fazerPagamento(sc);
 					caixa.getPedidosPagos().addAll(cozinha.getPedidosProntos());
 					cozinha.getPedidosProntos().removeIf(p -> p.getIdCliente() == idCliente);
@@ -470,7 +470,7 @@ public class GerenciadorMenu {
 	// Sub Menu Pagamentos
 
 	public void subMenuPagamentos(Scanner sc, Cliente cliente) {
-		caixa.listarPedidosParaPagar(sc, pessoa, cozinha, cliente.getId());
+		caixa.listarPedidosParaPagar(pessoa, cozinha, cliente.getId());
 		caixa.fazerPagamento(sc);
 	}
 

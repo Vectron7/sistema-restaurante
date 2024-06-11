@@ -5,10 +5,10 @@ import com.artur.interfaces.Identificacao;
 public class ItemCardapio implements Identificacao {
 
     private String nome;
-    private String tamanho;
-    private String descricao;
-    private String categoria;
-    private double preco;
+    private final String tamanho;
+    private final String descricao;
+    private final String categoria;
+    private final double preco;
     private int idItem;
 
     public ItemCardapio(String nome, String tamanho, String descricao, double preco) {
@@ -18,15 +18,6 @@ public class ItemCardapio implements Identificacao {
         this.preco = preco;
         this.categoria = definirCategoria(nome);
     }
-
-    public ItemCardapio(String nome, float preco, int idItem){
-        this.nome = nome;
-        this.preco = preco;
-        this.idItem = idItem;
-
-    }
-
-
 
     private String definirCategoria(String nome) {
 
@@ -61,32 +52,16 @@ public class ItemCardapio implements Identificacao {
         return tamanho;
     }
 
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
-
     public double getPreco() {
         return preco;
-    }
-
-    public void setPreco(float preco) {
-        this.preco = preco;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public String getCategoria() {
         return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     @Override
