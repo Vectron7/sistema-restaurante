@@ -1,12 +1,12 @@
 package com.artur.gerenciamento;
 
 import java.util.ArrayList;
-import com.artur.interfaces.Pessoa;
+import com.artur.interfaces.GerenciamentoPessoas;
 import com.artur.pessoas.*;
 
 // Terminar o resto dos metodos
 
-public class GerenciarPessoa implements Pessoa {
+public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
     private final ArrayList<Cliente> listaClientes;
     private final ArrayList<Garcom> listaGarcom;
@@ -14,15 +14,17 @@ public class GerenciarPessoa implements Pessoa {
 
     private int ultimoIdCliente = 0;
     protected int ultimoIdGarcom = 0;
+    private int ultimoIdGerente = 0;
 
-    public GerenciarPessoa() {
+    public GerenciadorDePessoas() {
         this.listaClientes = new ArrayList<>();
         this.listaGarcom = new ArrayList<>();
         this.listaGerente = new ArrayList<>();
+        gerarGarcom();
     }
 
 
-    protected void gerarGarcom() {
+    public void gerarGarcom() {
         adicionarGarcom(new Garcom("Thiago", "Capao Redondo", "1234-5678", 1412));
         adicionarGarcom(new Garcom("Ana", "Av. Paulista, 100", "9876-5432", 1413));
         adicionarGarcom(new Garcom("Carlos", "Rua Augusta, 200", "8765-4321", 1414));
@@ -115,18 +117,37 @@ public class GerenciarPessoa implements Pessoa {
 
     @Override
     public void adicionarGerente(Gerente gerente) {
-        // Adicionar Logica
-        // Apenas um Gerente por vez (nao permitir adicionar mais de um)
+        if (Gerente.getGerenteAtual() == null) { // Se não houver gerente atual
+            gerente.setIdGerente(++ultimoIdGerente); // Define o ID do gerente
+            listaGerente.add(gerente); // Adiciona o gerente à lista de gerentes
+            Gerente.setGerenteAtual(gerente); // Define o gerente como gerente atual
+            System.out.println("Gerente adicionado com sucesso.");
+        } else {
+            System.out.println("Já existe um gerente no restaurante.");
+        }
     }
 
     @Override
     public void removerGerente(int IdGerente) {
-        // Adicionar Logica e parametros do metodo
+        for (Gerente gerente : listaGerente) {
+            if (gerente.getId() == IdGerente) {
+                listaGerente.remove(gerente);
+                Gerente.setGerenteAtual(null);
+                System.out.println("Gerente removido com sucesso.");
+                return;
+            }
+        }
+        System.out.println("Gerente não encontrado com o ID fornecido.");
     }
 
     @Override
     public void listarGerente() {
-
+        if (Gerente.getGerenteAtual() != null) {
+            Gerente gerenteAtual = Gerente.getGerenteAtual();
+            System.out.println("Gerente atual: " + gerenteAtual.getNome());
+        } else {
+            System.out.println("Não há gerente no restaurante atualmente.");
+        }
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -141,4 +162,6 @@ public class GerenciarPessoa implements Pessoa {
     public ArrayList<Gerente> getListaGerente() {
         return listaGerente;
     }
+
+
 }

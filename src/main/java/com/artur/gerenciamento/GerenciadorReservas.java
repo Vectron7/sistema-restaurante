@@ -4,18 +4,40 @@ import java.util.ArrayList;
 
 import com.artur.controle.Reserva;
 import com.artur.interfaces.Listagem;
-import com.artur.estabelecimento.Mesa;
+import com.artur.controle.Mesa;
 import com.artur.pessoas.Garcom;
 
 
-public class GerenciarReservas implements Listagem {
+public class GerenciadorReservas implements Listagem {
+
 
     private final ArrayList<Reserva> listaReservas;
     private int ultimoIdReserva = 1;
 
-    public GerenciarReservas() {
+    public GerenciadorReservas() {
 
         this.listaReservas = new ArrayList<>();
+    }
+
+    public Garcom escolherGarcom(GerenciadorDePessoas pessoa) {
+
+        if (pessoa.getListaGarcom() == null || pessoa.getListaGarcom().isEmpty()) {
+            System.out.println("A lista de garcons está vazia.");
+            return null;
+        }
+
+        for (Garcom g : pessoa.getListaGarcom()) {
+            if (!g.isOcupado()) {
+                g.setOcupado(true);
+                System.out.println("Garcom escolhido: ID " + g.getId());
+                System.out.println("Nome do Garcom: " + g.getNome());
+                return g;
+            }
+        }
+
+        System.out.println("Nao existe garcom disponivel");
+        return null;
+
     }
 
     protected void adicionarReserva(Reserva reserva) {

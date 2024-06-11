@@ -1,4 +1,4 @@
-package com.artur.estabelecimento;
+package com.artur.controle;
 
 import com.artur.interfaces.Identificacao;
 

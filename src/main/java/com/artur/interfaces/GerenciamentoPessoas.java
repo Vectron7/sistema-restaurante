@@ -4,7 +4,7 @@ import com.artur.pessoas.Cliente;
 import com.artur.pessoas.Garcom;
 import com.artur.pessoas.Gerente;
 
-public interface Pessoa {
+public interface GerenciamentoPessoas {
 
     void adicionarCliente(Cliente cliente);
 

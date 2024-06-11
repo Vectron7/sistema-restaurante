@@ -19,6 +19,15 @@ public class ItemCardapio implements Identificacao {
         this.categoria = definirCategoria(nome);
     }
 
+    public ItemCardapio(String nome, float preco, int idItem){
+        this.nome = nome;
+        this.preco = preco;
+        this.idItem = idItem;
+
+    }
+
+
+
     private String definirCategoria(String nome) {
 
         if (nome.contains("Bife") || nome.contains("Frango") || nome.contains("Spaghetti")) {
@@ -60,7 +69,7 @@ public class ItemCardapio implements Identificacao {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 
@@ -86,6 +95,7 @@ public class ItemCardapio implements Identificacao {
     }
 
     public void setIdItem(int idItem) {
+
         this.idItem = idItem;
     }
 

@@ -1,6 +1,5 @@
 package com.artur.controle;
 
-import com.artur.gerenciamento.GerenciarPessoa;
 import com.artur.interfaces.Identificacao;
 import com.artur.pessoas.Garcom;
 
@@ -14,46 +13,21 @@ public class Reserva implements Identificacao {
     private String nomeCliente;
     private String dataReserva;
     private String horaReserva;
-    private final GerenciarPessoa pessoa;
 
 
-    public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa, GerenciarPessoa pessoa) {
+
+    public Reserva(String dataReserva, String horaReserva, String nomeCliente, String telefoneCliente, int numMesa, Garcom g) {
         this.dataReserva = dataReserva;
         this.horaReserva = horaReserva;
         this.telefoneCliente = telefoneCliente;
         this.nomeCliente = nomeCliente;
         this.numMesa = numMesa;
-        this.pessoa = pessoa;
-
-        Garcom g = escolherGarcom();
-        if (g != null) {
-            this.idGarcom = g.getId();
-            this.nomeGarcom = g.getNome();
-        } else {
-            System.out.println("Nao foi possivel reservar um garcom.");
-        }
-    }
-
-    private Garcom escolherGarcom() {
-
-        if (pessoa.getListaGarcom() == null || pessoa.getListaGarcom().isEmpty()) {
-            System.out.println("A lista de garcons está vazia.");
-            return null;
-        }
-
-        for (Garcom g : pessoa.getListaGarcom()) {
-            if (!g.isOcupado()) {
-                g.setOcupado(true);
-                System.out.println("Garcom escolhido: ID " + g.getId());
-                System.out.println("Nome do Garcom: " + g.getNome());
-                return g;
-            }
-        }
-
-        System.out.println("Nao existe garcom disponivel");
-        return null;
+        this.idGarcom = g.getId();
+        this.nomeGarcom = g.getNome();
 
     }
+
+
 
     @Override
     public int getId() {

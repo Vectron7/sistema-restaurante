@@ -1,29 +1,24 @@
-// Faltam fazer: Pedidos, Cozinha, Caixa, "Garçom?", "Gerente?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
+// Faltam fazer: "Gerente?" (Colocar mais coisas que faltam ou dar/adicionar mais sugestões)
 // Herança (ja usado), Polimorfismo (Ja usado), abstração (Ja Usado), interface (Ja usado)
 
-// Criar logica para quantidade de items do cardapio que vai ser pedido (algo como quantidade * preço) e criar uma lista separada
-// para os itens que foram pedidos/comprados (como uma comanda) com o preço total.
-// Fazer a parte de modificar uma reserva
-
+// Corrigir o erro de duplicação na qnt de item na hora de fazer pedido repetido na cozinha
+// Fazer o modificar Cardapio
 // Comentar o codigo inteiro explicando oque cada coisa faz
 
-package com.artur.controle;
+package com.artur;
 
 import java.util.Scanner;
 
-import com.artur.estabelecimento.Restaurante;
-import com.artur.gerenciamento.GerenciarCardapio;
-import com.artur.gerenciamento.GerenciarMenu;
-import com.artur.gerenciamento.GerenciarMesas;
-import com.artur.gerenciamento.GerenciarPessoa;
-import com.artur.pessoas.Cliente;
+import com.artur.controle.Restaurante;
+import com.artur.gerenciamento.GerenciadorMenu;
 
 
-public class Principal {
+public class Main {
 
     public static void main(String[] args) {
 
-        GerenciarMenu menu = new GerenciarMenu();
+
+        GerenciadorMenu menu = new GerenciadorMenu();
         Scanner sc = new Scanner(System.in);
         Restaurante restaurante = new Restaurante();
         

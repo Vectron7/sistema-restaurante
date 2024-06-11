@@ -11,12 +11,12 @@ import com.artur.interfaces.Listagem;
 
 import java.util.List;
 
-public class GerenciarCardapio implements Listagem {
+public class GerenciadorCardapio implements Listagem {
 
     private final Map<String, List<ItemCardapio>> cardapio;
     private int IdGlobal = 1;
 
-    public GerenciarCardapio() {
+    public GerenciadorCardapio() {
         this.cardapio = new LinkedHashMap<>();
         gerarItems();
     }

@@ -1,17 +1,16 @@
 package com.artur.pessoas;
 
-import java.util.ArrayList;
-
-import com.artur.gerenciamento.GerenciarPessoa;
 import com.artur.interfaces.Identificacao;
 
-public class Gerente extends GerenciarPessoa implements Identificacao {
+public class Gerente extends Pessoa implements Identificacao {
 
-    private String nome;
     private int idGerente;
+    private float salario;
+    private static Gerente gerenteAtual;
 
-    public Gerente(String nome) {
-        this.nome = nome;
+    public Gerente(String nome, String endereco, String telefone, float salario) {
+        super(nome, endereco, telefone);
+        this.salario = salario;
     }
 
     @Override
@@ -19,12 +18,23 @@ public class Gerente extends GerenciarPessoa implements Identificacao {
         return idGerente;
     }
 
-    public String getNome() {
-        return nome;
+    public void setIdGerente(int idGerente) {
+        this.idGerente = idGerente;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public static void setGerenteAtual(Gerente gerente) {
+        gerenteAtual = gerente;
     }
 
+    public static Gerente getGerenteAtual() {
+        return gerenteAtual;
+    }
+
+    public float getSalario() {
+        return salario;
+    }
+
+    public void setSalario(float salario) {
+        this.salario = salario;
+    }
 }

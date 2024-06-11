@@ -2,15 +2,15 @@ package com.artur.gerenciamento;
 
 import java.util.ArrayList;
 
-import com.artur.estabelecimento.Mesa;
+import com.artur.controle.Mesa;
 import com.artur.interfaces.Listagem;
 
-public class GerenciarMesas implements Listagem {
+public class GerenciadorMesas implements Listagem {
 
     private final ArrayList<Mesa> listaMesas;
     private int numGlobal = 1;
 
-    public GerenciarMesas() {
+    public GerenciadorMesas() {
         this.listaMesas = new ArrayList<>();
         criarMesa();
     }
