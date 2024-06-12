@@ -33,7 +33,6 @@ public class GerenciadorMenu {
 		this.reserva = new GerenciadorReservas();
 		this.pessoa = new GerenciadorDePessoas();
 		this.caixa = new Pagamento();
-		pessoa.adicionarCliente(new Cliente("Artur", "Jardins", "1234-5678", "06-09-2004"));
 	}
 
 	public int inserirInt(Scanner scanner) {
@@ -102,11 +101,13 @@ public class GerenciadorMenu {
 		Cliente cliente = null;
 
 		do {
-			System.out.println("\nOla!! Bem vindo ao " + restaurante.getNOME_RESTAURANTE()
-			+ ". Para iniciar o atendimento, precisamos fazer seu cadastro.");
-			System.out.println("Se voce ja tem um cadastro, pressione (1).");
-			System.out.println("Se voce deseja fazer um cadastro, pressione (2)");
-			System.out.println("Se deseja voltar, pressione (0)");
+			System.out.println("\n==================== Atendimento ====================");
+			System.out.println("\nOla!! Bem vindo ao " + restaurante.getNOME_RESTAURANTE() + ".");
+			System.out.println("Para iniciar o atendimento, primeiro precisamos fazer seu cadastro.\n");
+			System.out.println("Escolha uma das opções abaixo.");
+			System.out.println("1 - Já tenho cadastro");
+			System.out.println("2 - Realizar Cadastro");
+			System.out.println("3 - Voltar");
 
 			opcao1 = inserirInt(sc);
 			sc.nextLine();
@@ -158,12 +159,14 @@ public class GerenciadorMenu {
 
 		int opcao2;
 
-		System.out.println("Agora, seu pedido.");
+		System.out.println("Certo, Agora faça seu pedido.");
 
 		do {
 			System.out.println("1 - Mostrar o Cardapio");
 			System.out.println("2 - Fazer o Pedido");
-			System.out.println("3 - Ir Para o Pagamento");
+			if(!cozinha.getPedidosProntos().isEmpty()) {
+				System.out.println("3 - Ir Para o Pagamento");
+			}
 
 			opcao2 = inserirInt(sc);
 			sc.nextLine();

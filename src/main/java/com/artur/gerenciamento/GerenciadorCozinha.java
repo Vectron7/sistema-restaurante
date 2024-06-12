@@ -17,11 +17,35 @@ public class GerenciadorCozinha {
         this.pedidosProntos = new ArrayList<>();
     }
 
+    public static void loadingAnimation(long durationInMillis) {
+        try {
+            long startTime = System.currentTimeMillis();
+
+            while (System.currentTimeMillis() - startTime < durationInMillis) {
+                System.out.print("\rPreparando.  ");
+                Thread.sleep(500);
+                System.out.print("\rPreparando.. ");
+                Thread.sleep(500);
+                System.out.print("\rPreparando...");
+                Thread.sleep(500);
+            }
+            System.out.print("\r                "); // Limpa a linha após a animação
+            System.out.println();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void preparar(ItemPedido novoPedido) {
         System.out.println("Pedido adicionado com sucesso!");
+
+        loadingAnimation(2000);
         marcarPedidoEmPendente(novoPedido);
+        loadingAnimation(2000);
         marcarPedidoComoPreparando(novoPedido);
+        loadingAnimation(2000);
         marcarPedidoComoPronto(novoPedido);
+        loadingAnimation(2000);
         System.out.println("Pedido ID: " + novoPedido.getId() + " - " + novoPedido.getNomePedido() + " entregue.");
     }
 

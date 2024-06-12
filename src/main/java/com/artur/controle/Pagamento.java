@@ -11,7 +11,22 @@ public class Pagamento extends Caixa {
         int confirmacao = menu.inserirInt(sc);
         sc.nextLine();
         if (confirmacao == 1) {
-            System.out.println("Continuando...");
+            try {
+                long startTime = System.currentTimeMillis();
+                long duration = 2000; // Duração da animação em milissegundos
+
+                while (System.currentTimeMillis() - startTime < duration) {
+                    System.out.print("\rContinuando.  ");
+                    Thread.sleep(500);
+                    System.out.print("\rContinuando.. ");
+                    Thread.sleep(500);
+                    System.out.print("\rContinuando...");
+                    Thread.sleep(500);
+                }
+                System.out.println();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Pagamento cancelado.");
         }
