@@ -1,20 +1,25 @@
 package com.artur.gerenciamento;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.artur.controle.ItemPedido;
 
 public class GerenciadorCozinha {
 
-    private final List<ItemPedido> pedidosPendentes;
-    private final List<ItemPedido> pedidosEmPreparacao;
-    private final List<ItemPedido> pedidosProntos;
+    private final Set<ItemPedido> pedidosPendentes;
+    private final Set<ItemPedido> pedidosEmPreparacao;
+    private final Set<ItemPedido> pedidosProntos;
 
     public GerenciadorCozinha() {
-        this.pedidosPendentes = new ArrayList<>();
-        this.pedidosEmPreparacao = new ArrayList<>();
-        this.pedidosProntos = new ArrayList<>();
+        Comparator<ItemPedido> comparator = Comparator
+                .comparing(ItemPedido::getNomePedido)
+                .thenComparing(ItemPedido::getIdCliente);
+
+        this.pedidosPendentes = new TreeSet<>(comparator);
+        this.pedidosEmPreparacao = new TreeSet<>(comparator);
+        this.pedidosProntos = new TreeSet<>(comparator);
     }
 
     public static void loadingAnimation(long durationInMillis) {
@@ -50,18 +55,7 @@ public class GerenciadorCozinha {
     }
 
     public void marcarPedidoEmPendente(ItemPedido novoPedido) {
-        boolean pedidoExistente = false;
-
-        for (ItemPedido i : pedidosPendentes) {
-            // Verifica se o item já existe na lista e pertence ao mesmo cliente
-            if (novoPedido.getIdItemCardapio() == i.getIdItemCardapio() && novoPedido.getIdCliente() == i.getIdCliente()) {
-                i.setQuantidade(i.getQuantidade() + novoPedido.getQuantidade());
-                pedidoExistente = true;
-                break;
-            }
-        }
-
-        if (!pedidoExistente) {
+        if (!atualizarQuantidadeSeExistente(novoPedido, pedidosPendentes)) {
             pedidosPendentes.add(novoPedido);
             System.out.println("Pedido ID: " + novoPedido.getId() + " - " + novoPedido.getNomePedido() + " foi adicionado a pendentes.");
         } else {
@@ -70,17 +64,7 @@ public class GerenciadorCozinha {
     }
 
     public void marcarPedidoComoPreparando(ItemPedido novoPedido) {
-        boolean pedidoExistente = false;
-
-        for (ItemPedido pedido : pedidosEmPreparacao) {
-            if (pedido.getIdItemCardapio() == novoPedido.getIdItemCardapio() && pedido.getIdCliente() == novoPedido.getIdCliente()) {
-                pedido.setQuantidade(pedido.getQuantidade() + novoPedido.getQuantidade());
-                pedidoExistente = true;
-                break;
-            }
-        }
-
-        if (!pedidoExistente) {
+        if (!atualizarQuantidadeSeExistente(novoPedido, pedidosEmPreparacao)) {
             ItemPedido pedidoPendente = null;
             for (ItemPedido pedido : pedidosPendentes) {
                 if (pedido.getIdItemCardapio() == novoPedido.getIdItemCardapio() && pedido.getIdCliente() == novoPedido.getIdCliente()) {
@@ -103,17 +87,7 @@ public class GerenciadorCozinha {
     }
 
     public void marcarPedidoComoPronto(ItemPedido novoPedido) {
-        boolean pedidoExistente = false;
-
-        for (ItemPedido pedido : pedidosProntos) {
-            if (pedido.getIdItemCardapio() == novoPedido.getIdItemCardapio() && pedido.getIdCliente() == novoPedido.getIdCliente()) {
-                pedido.setQuantidade(pedido.getQuantidade() + novoPedido.getQuantidade());
-                pedidoExistente = true;
-                break;
-            }
-        }
-
-        if (!pedidoExistente) {
+        if (!atualizarQuantidadeSeExistente(novoPedido, pedidosProntos)) {
             ItemPedido pedidoEmPreparacao = null;
             for (ItemPedido pedido : pedidosEmPreparacao) {
                 if (pedido.getIdItemCardapio() == novoPedido.getIdItemCardapio() && pedido.getIdCliente() == novoPedido.getIdCliente()) {
@@ -133,6 +107,16 @@ public class GerenciadorCozinha {
         } else {
             System.out.println("Pedido ID: " + novoPedido.getId() + " atualizado na lista de prontos.");
         }
+    }
+
+    private boolean atualizarQuantidadeSeExistente(ItemPedido novoPedido, Set<ItemPedido> pedidos) {
+        for (ItemPedido pedido : pedidos) {
+            if (pedido.getNomePedido().equals(novoPedido.getNomePedido()) && pedido.getIdCliente() == novoPedido.getIdCliente()) {
+                pedido.setQuantidade(pedido.getQuantidade() + novoPedido.getQuantidade());
+                return true;
+            }
+        }
+        return false;
     }
 
     public void mostrarPedidosPendentes() {
@@ -156,15 +140,15 @@ public class GerenciadorCozinha {
         }
     }
 
-    public List<ItemPedido> getPedidosPendentes() {
+    public Set<ItemPedido> getPedidosPendentes() {
         return pedidosPendentes;
     }
 
-    public List<ItemPedido> getPedidosEmPreparacao() {
+    public Set<ItemPedido> getPedidosEmPreparacao() {
         return pedidosEmPreparacao;
     }
 
-    public List<ItemPedido> getPedidosProntos() {
+    public Set<ItemPedido> getPedidosProntos() {
         return pedidosProntos;
     }
 }

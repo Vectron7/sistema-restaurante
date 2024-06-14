@@ -12,9 +12,9 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
     private final ArrayList<Garcom> listaGarcom;
     private final ArrayList<Gerente> listaGerente;
 
-    private int ultimoIdCliente = 0;
-    protected int ultimoIdGarcom = 0;
-    private int ultimoIdGerente = 0;
+    private static int ultimoIdCliente = 0;
+    protected static int ultimoIdGarcom = 0;
+    private static int ultimoIdGerente = 0;
 
     public GerenciadorDePessoas() {
         this.listaClientes = new ArrayList<>();
@@ -35,34 +35,33 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
     @Override
     public void adicionarCliente(Cliente cliente) {
         // Define o id do cliente e o adiciona a lista de cliente
-        cliente.setIdCliente(++ultimoIdCliente);
+        ultimoIdCliente++;
+        cliente.setIdCliente(ultimoIdCliente);
         listaClientes.add(cliente);
 
     }
 
     @Override
     public void removerCliente(int IdCliente) {
+
         // Verifica se o id do cliente existe e o remove
-        for (int i = 0; i < listaClientes.size(); i++) {
-            Cliente r = listaClientes.get(i);
-            if (r.getId() == IdCliente) {
-                listaClientes.remove(r);
+        for(Cliente c : listaClientes){
+            if(c.getId() == IdCliente){
+                listaClientes.remove(c);
+                ultimoIdCliente--;
                 System.out.println("Cliente removido com sucesso.");
+                break;
             }
+        }
 
-            // Atualiza os ids da lista
-            for (Cliente listaCliente : listaClientes) {
-                int novoID = listaCliente.getId() - 1;
-                if (novoID >= 1) {
-                    listaCliente.setIdCliente(novoID);
-                }
-            }
-
+        // Atualiza os ids da lista
+        for (int i = 0; i < listaClientes.size(); i++) {
+            listaClientes.get(i).setIdCliente(i + 1);
         }
 
         // Se a lista estiver vazia, garante que o ultimoIdCliente seja 0
         if (listaClientes.isEmpty()) {
-            this.ultimoIdCliente = 0;
+            ultimoIdCliente = 0;
         }
     }
 
@@ -77,29 +76,32 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
     @Override
     public void adicionarGarcom(Garcom garcom) {
         // Define o id do garçom e o adiciona a lista de garçons
-        garcom.setIdGarcom(++ultimoIdGarcom);
+        ultimoIdGarcom++;
+        garcom.setIdGarcom(ultimoIdGarcom);
         listaGarcom.add(garcom);
     }
 
     @Override
     public void removerGarcom(int IdGarcom) {
         // Verifica se o id do garçom existe e o remove
-        for (int i = 0; i < listaGarcom.size(); i++) {
-            Garcom g = listaGarcom.get(i);
+        for(Garcom g : listaGarcom){
             if (g.getId() == IdGarcom) {
                 listaGarcom.remove(g);
+                ultimoIdGarcom--;
                 System.out.println("Garçom removido com sucesso.");
                 break;
             }
         }
 
-        // Atualizar os IDs dos garçons restantes
+        // Atualiza os ids da lista
         for (int i = 0; i < listaGarcom.size(); i++) {
             listaGarcom.get(i).setIdGarcom(i + 1);
         }
 
-        // Ajustar o último ID de garçom
-        this.ultimoIdGarcom = listaGarcom.size();
+        // Se a lista estiver vazia, garante que o ultimoIdGarcom seja 0
+        if (listaGarcom.isEmpty()) {
+            ultimoIdGarcom = 0;
+        }
     }
 
     @Override
@@ -117,10 +119,10 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
     @Override
     public void adicionarGerente(Gerente gerente) {
-        if (Gerente.getGerenteAtual() == null) { // Se não houver gerente atual
-            gerente.setIdGerente(++ultimoIdGerente); // Define o ID do gerente
-            listaGerente.add(gerente); // Adiciona o gerente à lista de gerentes
-            Gerente.setGerenteAtual(gerente); // Define o gerente como gerente atual
+        if (Gerente.getGerenteAtual() == null) { // Se não existir um gerente, adiciona um.
+            gerente.setIdGerente(++ultimoIdGerente);
+            listaGerente.add(gerente);
+            Gerente.setGerenteAtual(gerente);
             System.out.println("Gerente adicionado com sucesso.");
         } else {
             System.out.println("Já existe um gerente no restaurante.");
@@ -153,7 +155,6 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
-
 
     public ArrayList<Garcom> getListaGarcom() {
         return listaGarcom;

@@ -33,6 +33,7 @@ public class GerenciadorMenu {
 		this.reserva = new GerenciadorReservas();
 		this.pessoa = new GerenciadorDePessoas();
 		this.caixa = new Pagamento();
+		pessoa.adicionarCliente(new Cliente("Artur", "Jardins", "1234-5678", "06-06-2004"));
 	}
 
 	public int inserirInt(Scanner scanner) {
@@ -107,7 +108,7 @@ public class GerenciadorMenu {
 			System.out.println("Escolha uma das opções abaixo.");
 			System.out.println("1 - Já tenho cadastro");
 			System.out.println("2 - Realizar Cadastro");
-			System.out.println("3 - Voltar");
+			System.out.println("0 - Voltar");
 
 			opcao1 = inserirInt(sc);
 			sc.nextLine();
