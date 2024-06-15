@@ -1,33 +1,53 @@
+//Define um arquivo XML com versão 1.0 e codificação UTF-8
 <?xml version="1.0" encoding="UTF-8"?>
-//oioioioioi
+//Esse elemento raiz que contém informações sobre o projeto 
 <projectDescription>
+          //Define o nome do projeto como "restaurante"
 	<name>restaurante</name>
+         //Permite adicionar um comentário sobre o projeto (neste caso, está vazio)
 	<comment></comment>
+       //Pode conter informações sobre projetos relacionados (neste caso, está vazio)
 	<projects>
 	</projects>
+       //Especificações para a construção do projeto
 	<buildSpec>
+              //Define um comando de construção
 		<buildCommand>
+                        //aqui indica que o construtor Java do Eclipse será utilizado
 			<name>org.eclipse.jdt.core.javabuilder</name>
+                         //Pode conter argumentos para o comando de construção (neste caso, está vazio)
 			<arguments>
 			</arguments>
 		</buildCommand>
+                 // Define outro comando de construção
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
+                        //Indica que o construtor Maven do Eclipse será utilizado
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
+        //Define as naturezas do projeto
 	<natures>
+                 // Indica que o projeto possui a natureza Java
 		<nature>org.eclipse.jdt.core.javanature</nature>
+                //Indica que o projeto possui a natureza Maven 
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
+         //Define os recursos filtrados do projeto
 	<filteredResources>
 		<filter>
+                        //Identificador único do filtro
 			<id>1717449605699</id>
+                       // Essse nome do filtro (neste caso, está vazio)
 			<name></name>
+                       //Tipo de filtro
 			<type>30</type>
+                        //Define um matcher para o filtro
 			<matcher>
+                                //Define um matcher para o filtro
 				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+                                //Argumentos do matcher, que especificam os padrões de filtragem (por exemplo, node_modules, .git, etc.)
 				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
 			</matcher>
 		</filter>
