@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+//Define o projeto Maven
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+         //Define a versão do modelo do projeto
+         <modelVersion>4.0.0</modelVersion>
+         
+     //Define o ID do grupo do projeto
     <groupId>com.artur</groupId>
+     //Define o ID do artefato do projeto
     <artifactId>restaurante</artifactId>
+     //Define a versão do projeto
     <version>1.0-SNAPSHOT</version>
 
+         
+     //Define as propriedades do projeto
     <properties>
+        //Define a versão do compilador Java
         <maven.compiler.source>17</maven.compiler.source>
+         //Define a versão de destino do compilador Java
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
