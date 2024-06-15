@@ -1,21 +1,25 @@
-package com.artur.gerenciamento;
+package com.artur.gerenciamento;  // Declaração do pacote
 
-import java.util.ArrayList;
-import com.artur.interfaces.GerenciamentoPessoas;
-import com.artur.pessoas.*;
+import java.util.ArrayList;  // Importação da classe ArrayList 
+import com.artur.interfaces.GerenciamentoPessoas; // Importação da interface GerenciamentoPessoas
+import com.artur.pessoas.*; // Importação de todas as classes do pacote com.artur.pessoas
 
 // Terminar o resto dos metodos
 
 public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
+    // Listas para armazenar clientes, garçons e gerentes.
     private final ArrayList<Cliente> listaClientes;
     private final ArrayList<Garcom> listaGarcom;
     private final ArrayList<Gerente> listaGerente;
 
+     // Variáveis estáticas para gerar IDs únicos para clientes, garçons e gerentes.
     private static int ultimoIdCliente = 0;
     protected static int ultimoIdGarcom = 0;
     private static int ultimoIdGerente = 0;
 
+    
+    // Construtor que inicializa as listas e gera garçons.
     public GerenciadorDePessoas() {
         this.listaClientes = new ArrayList<>();
         this.listaGarcom = new ArrayList<>();
@@ -24,6 +28,7 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
     }
 
 
+    // Método para gerar garçons pré-definidos.
     public void gerarGarcom() {
         adicionarGarcom(new Garcom("Thiago", "Capao Redondo", "1234-5678", 1412));
         adicionarGarcom(new Garcom("Ana", "Av. Paulista, 100", "9876-5432", 1413));
@@ -119,6 +124,7 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
     @Override
     public void adicionarGerente(Gerente gerente) {
+        // Adiciona um gerente se não houver nenhum atualmente.
         if (Gerente.getGerenteAtual() == null) { // Se não existir um gerente, adiciona um.
             gerente.setIdGerente(++ultimoIdGerente);
             listaGerente.add(gerente);
@@ -131,6 +137,7 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
     @Override
     public void removerGerente(int IdGerente) {
+  // Remove o gerente se o id fornecido corresponder ao id do gerente.
         for (Gerente gerente : listaGerente) {
             if (gerente.getId() == IdGerente) {
                 listaGerente.remove(gerente);
@@ -144,6 +151,7 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
     @Override
     public void listarGerente() {
+     // Lista o gerente atual.
         if (Gerente.getGerenteAtual() != null) {
             Gerente gerenteAtual = Gerente.getGerenteAtual();
             System.out.println("Gerente atual: " + gerenteAtual.getNome());
@@ -152,6 +160,7 @@ public class GerenciadorDePessoas implements GerenciamentoPessoas {
         }
     }
 
+   // Métodos para obter as listas de clientes, garçons e gerentes.
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
