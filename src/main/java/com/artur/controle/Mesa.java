@@ -1,35 +1,47 @@
+//Esta classe 'Mesa' representa uma mesa em um restaurante  
+//Ela mantém informações como o identificador da mesa, sua capacidade e o status de reserva.
+
+
 package com.artur.controle;
 
 import com.artur.interfaces.Identificacao;
 
+// Declaração da classe Mesa que implementa a interface Identificacao
 public class Mesa implements Identificacao {
 
-    private int idMesa;
-    private int capacidade;
-    private boolean statusMesa;
+    // Declaração dos atributos da classe
+    private int idMesa;// Identificador único da mesa
+    private int capacidade; // Capacidade máxima de pessoas na mesa
+    private boolean statusMesa; // Status da mesa (reservada ou não)
 
+    // Construtor da classe
     public Mesa(int capacidade) {
-        this.capacidade = capacidade;
-        this.statusMesa = false;
+        this.capacidade = capacidade; // Define a capacidade da mesa
+        this.statusMesa = false; // Inicialmente, a mesa não está reservada
     }
 
+    // Método getter para verificar o status da mesa
     public boolean isStatusMesa() {
         return statusMesa;
     }
 
+     // Método para reservar a mesa
     public void reservar() {
-        statusMesa = true;
+        statusMesa = true; // Define o status da mesa como reservada
     }
 
+    // Implementação do método da interface Identificacao para obter o ID da mesa
     @Override
     public int getId() {
         return idMesa;
     }
 
+    // Métodos getters e setters para obter e definir a capacidade da mesa
     public int getCapacidade() {
         return capacidade;
     }
 
+     // Métodos getters e setters para obter e definir o ID da mesa
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
     }
@@ -38,6 +50,7 @@ public class Mesa implements Identificacao {
         this.capacidade = capacidade;
     }
 
+    // Método setter para definir o status da mesa
     public void setStatusMesa(boolean statusMesa) {
         this.statusMesa = statusMesa;
     }
