@@ -4,7 +4,7 @@ import java.util.ArrayList;  // Importação da classe ArrayList
 import com.artur.interfaces.GerenciamentoPessoas; // Importação da interface GerenciamentoPessoas
 import com.artur.pessoas.*; // Importação de todas as classes do pacote com.artur.pessoas
 
-// Terminar o resto dos metodos
+// Classe que implementa a interface GerenciamentoPessoas para gerenciar clientes, garçons e gerentes.
 
 public class GerenciadorDePessoas implements GerenciamentoPessoas {
 
