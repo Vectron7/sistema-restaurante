@@ -1,28 +1,34 @@
 package com.artur.gerenciamento;
 
+// Importações necessárias para formatação de números e manipulação de listas e mapas.
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.artur.controle.ItemCardapio;
-import com.artur.interfaces.Listagem;
+import com.artur.controle.ItemCardapio; // Importa a classe ItemCardapio do pacote com.artur.controle
+import com.artur.interfaces.Listagem;// Importa a interface Listagem do pacote com.artur.interfaces
 
 import java.util.List;
 
+// Declaração da classe GerenciadorCardapio que implementa a interface Listagem
 public class GerenciadorCardapio implements Listagem {
 
-    private final Map<String, List<ItemCardapio>> cardapio;
-    private int IdGlobal = 1;
+    private final Map<String, List<ItemCardapio>> cardapio; // Mapa que armazena os itens do cardápio por categoria
+    private int IdGlobal = 1; // Contador global para atribuir IDs únicos aos itens do cardápio
 
+
+    // Construtor da classe
     public GerenciadorCardapio() {
-        this.cardapio = new LinkedHashMap<>();
-        gerarItems();
+        this.cardapio = new LinkedHashMap<>(); // Inicializa o mapa do cardápio
+        gerarItems(); // Chama o método para gerar os itens do cardápio
     }
 
+    // Método protegido para gerar itens do cardápio
     protected void gerarItems() {
 
+         // Inicializa as categorias no mapa do cardápio
         cardapio.put("Pratos Principais", new ArrayList<>());
         cardapio.put("Acompanhamentos", new ArrayList<>());
         cardapio.put("Bebidas", new ArrayList<>());
@@ -55,6 +61,8 @@ public class GerenciadorCardapio implements Listagem {
 
     }
 
+    
+   // Método privado para retornar a categoria de um item baseado no nome da categoria
     private String Categoria(String categoria) {
 
         return switch (categoria) {
@@ -66,7 +74,8 @@ public class GerenciadorCardapio implements Listagem {
         };
 
     }
-
+    
+    // Método privado para obter o ID mais alto de uma categoria específica
     private int obterIdMaisAltoCategoria(String categoria, List<ItemCardapio> itensCategoria) {
         int idMaisAlto = 0;
 
@@ -86,14 +95,18 @@ public class GerenciadorCardapio implements Listagem {
         return idMaisAlto;
     }
 
+    // Método público para adicionar um item ao cardápio
     public void adicionarItem(String categoria, ItemCardapio item) {
 
         int idAlto = 1;
 
+        // Obtém a categoria anterior e a lista de itens da categoria anterior
         String catAnterior = Categoria(categoria);
         List<ItemCardapio> itensCatAnterior = cardapio.get(catAnterior);
         List<ItemCardapio> itens = cardapio.get(categoria);
 
+        
+          // Define o ID do item baseado na categoria
         if (categoria.equals("Pratos Principais")) {
             item.setIdItem(this.IdGlobal++);
         } else {
@@ -101,10 +114,12 @@ public class GerenciadorCardapio implements Listagem {
             item.setIdItem(idAlto + 1);
         }
 
+        // Adiciona o item à lista da categoria
         if (itens != null) {
             itens.add(item);
         }
 
+        // Reorganiza os IDs dos itens no cardápio
         int novoId = 1;
         for (Map.Entry<String, List<ItemCardapio>> entry : cardapio.entrySet()) {
             for (ItemCardapio itemCategoria : entry.getValue()) {
@@ -114,12 +129,17 @@ public class GerenciadorCardapio implements Listagem {
 
     }
 
+
+    
+    // Método público para remover um item do cardápio
     public void removerItem(String categoria, int id) {
 
+          // Verifica se a categoria existe no cardápio
         if (cardapio.containsKey(categoria)) {
             List<ItemCardapio> itensCategoria = cardapio.get(categoria);
             ItemCardapio itemRemovido = null;
 
+            // Encontra o item a ser removido pelo ID
             for (ItemCardapio item : itensCategoria) {
                 if (item.getId() == id) {
                     itemRemovido = item;
@@ -127,6 +147,7 @@ public class GerenciadorCardapio implements Listagem {
                 }
             }
 
+             // Remove o item se encontrado e reorganiza os IDs restantes
             if (itemRemovido != null) {
                 itensCategoria.remove(itemRemovido);
                 System.out.println("Item removido com sucesso.");
@@ -146,15 +167,18 @@ public class GerenciadorCardapio implements Listagem {
         }
     }
 
+      // Método para listar todos os itens do cardápio
     @Override
     public void listar() {
-
+         
+        // Define o formato para exibir os preços
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
         DecimalFormat df = new DecimalFormat("0.00", symbols);
 
         System.out.println("==================== CARDAPIO ====================");
 
+        // Percorre as categorias e seus itens no cardápio
         for (Map.Entry<String, List<ItemCardapio>> entry : getCardapio().entrySet()) {
             String categoria = entry.getKey();
             List<ItemCardapio> itensCategoria = entry.getValue();
@@ -171,12 +195,16 @@ public class GerenciadorCardapio implements Listagem {
         }
 
     }
+    
 
+    // Método para imprimir itens de uma categoria específica
     public void imprimirItensCategoria(String categoria, Map<String, List<ItemCardapio>> cardapio) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
         DecimalFormat df = new DecimalFormat("0.00", symbols);
+        
 
+        // Verifica se a categoria existe no cardápio
         if (cardapio.containsKey(categoria)) {
             List<ItemCardapio> itensCategoria = cardapio.get(categoria);
             for (ItemCardapio item : itensCategoria) {
@@ -189,6 +217,7 @@ public class GerenciadorCardapio implements Listagem {
         }
     }
 
+    // Método getter para obter o cardápio
     public Map<String, List<ItemCardapio>> getCardapio() {
         return cardapio;
     }
