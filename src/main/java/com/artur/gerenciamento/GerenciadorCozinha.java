@@ -1,27 +1,33 @@
+// Declaração do pacote
 package com.artur.gerenciamento;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Comparator;  // Importação da interface Comparator
+import java.util.Set; // Importação da interface Set
+import java.util.TreeSet; // Importação da classe TreeSet
 
-import com.artur.controle.ItemPedido;
+import com.artur.controle.ItemPedido; // Importação da classe ItemPedido do pacote com.artur.controle
 
 public class GerenciadorCozinha {
 
+    // Conjuntos de pedidos organizados por seu estado (pendente, em preparação, pronto).
     private final Set<ItemPedido> pedidosPendentes;
     private final Set<ItemPedido> pedidosEmPreparacao;
     private final Set<ItemPedido> pedidosProntos;
 
     public GerenciadorCozinha() {
+
+         // Comparator para ordenar os pedidos primeiramente pelo nome e, em caso de empate, pelo ID do cliente.
         Comparator<ItemPedido> comparator = Comparator
                 .comparing(ItemPedido::getNomePedido)
                 .thenComparing(ItemPedido::getIdCliente);
 
+        // Inicializa os conjuntos de pedidos usando o Comparator definido.
         this.pedidosPendentes = new TreeSet<>(comparator);
         this.pedidosEmPreparacao = new TreeSet<>(comparator);
         this.pedidosProntos = new TreeSet<>(comparator);
     }
 
+     // Método estático para exibir uma animação de carregamento por um determinado tempo.
     public static void loadingAnimation(long durationInMillis) {
         try {
             long startTime = System.currentTimeMillis();
@@ -40,7 +46,9 @@ public class GerenciadorCozinha {
             e.printStackTrace();
         }
     }
+    
 
+     // Método para preparar um pedido. Este método exibe mensagens e animações para simular o processo de preparação.
     public void preparar(ItemPedido novoPedido) {
         System.out.println("Pedido adicionado com sucesso!");
 
@@ -53,7 +61,8 @@ public class GerenciadorCozinha {
         loadingAnimation(2000);
         System.out.println("Pedido ID: " + novoPedido.getId() + " - " + novoPedido.getNomePedido() + " entregue.");
     }
-
+     
+     // Marca o pedido como pendente, adicionando-o ao conjunto de pedidos pendentes.
     public void marcarPedidoEmPendente(ItemPedido novoPedido) {
         if (!atualizarQuantidadeSeExistente(novoPedido, pedidosPendentes)) {
             pedidosPendentes.add(novoPedido);
@@ -62,7 +71,8 @@ public class GerenciadorCozinha {
             System.out.println("Pedido ID: " + novoPedido.getId() + " atualizado na lista de pendentes.");
         }
     }
-
+    
+      // Marca o pedido como em preparação, movendo-o do conjunto de pendentes para o de em preparação.
     public void marcarPedidoComoPreparando(ItemPedido novoPedido) {
         if (!atualizarQuantidadeSeExistente(novoPedido, pedidosEmPreparacao)) {
             ItemPedido pedidoPendente = null;
@@ -86,6 +96,7 @@ public class GerenciadorCozinha {
         }
     }
 
+      // Marca o pedido como pronto, movendo-o do conjunto de em preparação para o de prontos.
     public void marcarPedidoComoPronto(ItemPedido novoPedido) {
         if (!atualizarQuantidadeSeExistente(novoPedido, pedidosProntos)) {
             ItemPedido pedidoEmPreparacao = null;
@@ -108,7 +119,8 @@ public class GerenciadorCozinha {
             System.out.println("Pedido ID: " + novoPedido.getId() + " atualizado na lista de prontos.");
         }
     }
-
+    
+    // Método privado que atualiza a quantidade de um pedido se ele já existir no conjunto.
     private boolean atualizarQuantidadeSeExistente(ItemPedido novoPedido, Set<ItemPedido> pedidos) {
         for (ItemPedido pedido : pedidos) {
             if (pedido.getNomePedido().equals(novoPedido.getNomePedido()) && pedido.getIdCliente() == novoPedido.getIdCliente()) {
@@ -119,6 +131,7 @@ public class GerenciadorCozinha {
         return false;
     }
 
+    // Método para mostrar todos os pedidos pendentes.
     public void mostrarPedidosPendentes() {
         System.out.println("Pedidos pendentes:");
         for (ItemPedido pedido : pedidosPendentes) {
@@ -126,6 +139,7 @@ public class GerenciadorCozinha {
         }
     }
 
+     // Método para mostrar todos os pedidos em preparação.
     public void mostrarPedidosEmPreparacao() {
         System.out.println("Pedidos em Preparação:");
         for (ItemPedido pedido : pedidosEmPreparacao) {
@@ -133,6 +147,7 @@ public class GerenciadorCozinha {
         }
     }
 
+       // Método para mostrar todos os pedidos prontos.
     public void mostrarPedidosProntos() {
         System.out.println("Pedidos Prontos:");
         for (ItemPedido pedido : pedidosProntos) {
@@ -140,6 +155,7 @@ public class GerenciadorCozinha {
         }
     }
 
+    // Métodos getter para acessar os conjuntos de pedidos.
     public Set<ItemPedido> getPedidosPendentes() {
         return pedidosPendentes;
     }
