@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+//Define a descrição do projeto 
 <projectDescription>
+//Define o nome do projeto
 	<name>restaurante</name>
+	//Comentário opcional sobre o projeto
 	<comment></comment>
+        //Lista de projetos relacionados
 	<projects>
 	</projects>
+	//Define as especificações de construção do projeto
 	<buildSpec>
+               //Comando de construção do Java do Eclipse
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
+                         //Argumentos adicionais para o comando de construção 
 			<arguments>
 			</arguments>
 		</buildCommand>
+                //Comando de construção do Maven do Eclipse
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
+                        //Argumentos adicionais para o comando de construção
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
+       //Define as naturezas do projeto
 	<natures>
+                 //Natureza do projeto Java do Eclipse 
 		<nature>org.eclipse.jdt.core.javanature</nature>
+                  //Natureza do projeto Maven do Eclipse 
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
 </projectDescription>
