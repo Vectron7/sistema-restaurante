@@ -1,28 +1,26 @@
 package com.artur.controle;
 
+// Importação da interface Identificacao do pacote com.artur.interfaces
+// Esta interface é implementada pela classe ItemCardapio para fornecer um método getId()
 import com.artur.interfaces.Identificacao;
 
-// Declaração da classe ItemCardapio que implementa a interface Identificacao
 public class ItemCardapio implements Identificacao {
 
-     
-    // Declaração dos atributos da classe
-    private String nome; // Nome do item
-    private final String tamanho; // Tamanho do item (inalterável)
-    private final String descricao; // Descrição do item (inalterável)
-    private final String categoria; // Categoria do item (inalterável)
-    private final double preco; // Preço do item
-    private int idItem; // Identificador único do item 
+    private String nome;
+    private final String tamanho;
+    private final String descricao;
+    private final String categoria;
+    private final double preco;
+    private int idItem;
 
     
-    // Construtor da classe
     public ItemCardapio(String nome, String tamanho, String descricao, double preco) {
         this.nome = nome;
         this.tamanho = tamanho;
         this.descricao = descricao;
         this.preco = preco;
-        this.categoria = definirCategoria(nome);
         // Determina a categoria do item
+        this.categoria = definirCategoria(nome);
     }
 
      // Método privado para determinar a categoria do item com base no nome

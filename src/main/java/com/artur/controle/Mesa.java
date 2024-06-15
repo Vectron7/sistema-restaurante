@@ -6,15 +6,12 @@ package com.artur.controle;
 
 import com.artur.interfaces.Identificacao;
 
-// Declaração da classe Mesa que implementa a interface Identificacao
 public class Mesa implements Identificacao {
 
-    // Declaração dos atributos da classe
     private int idMesa;// Identificador único da mesa
     private int capacidade; // Capacidade máxima de pessoas na mesa
     private boolean statusMesa; // Status da mesa (reservada ou não)
 
-    // Construtor da classe
     public Mesa(int capacidade) {
         this.capacidade = capacidade; // Define a capacidade da mesa
         this.statusMesa = false; // Inicialmente, a mesa não está reservada

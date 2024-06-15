@@ -1,89 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-//Configuração do diretório de código-fonte principal
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
 		<attributes>
-                        //Define que este diretório é opcional
 			<attribute name="optional" value="true"/>
-                        //Indica que é derivado do arquivo POM do Maven
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-        //Configuração do diretório de recursos do projeto
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
-                        //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
-                        //Define que este diretório é opcional 
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-        //Configuração do diretório de código de teste 
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
-                        //Indica que são classes de teste
 			<attribute name="test" value="true"/>
-                        //Define que este diretório é opcional
 			<attribute name="optional" value="true"/>
-                        //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-        //Configuração do diretório de recursos de teste
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
 		<attributes>
-                //Indica que são recursos de teste 
 			<attribute name="test" value="true"/>
-                        //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
-                        // Define que este diretório é opcional
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-        //Aqui configuração do container JRE 
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
-                        //Indica que é um módulo
 			<attribute name="module" value="true"/>
-                       //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-           //Configuração do container de classpath do Maven
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
-                   //Indica que é derivado do arquivo POM do Maven
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-          //Configuração do diretório de fontes geradas de anotações
 	<classpathentry kind="src" path="target/generated-sources/annotations">
 		<attributes>
-                       //Ignora problemas opcionais
 			<attribute name="ignore_optional_problems" value="true"/>
-                         //Define que este diretório é opcional
 			<attribute name="optional" value="true"/>
-                        //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
-                       //Indica que é um processador de anotações do Maven 
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-         //Configuração do diretório de fontes de teste geradas de anotações
 	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
 		<attributes>
-                        //Ignora problemas opcionais
 			<attribute name="ignore_optional_problems" value="true"/>
-                        //Indica que são classes de teste 
 			<attribute name="test" value="true"/>
-                        //Define que este diretório é opcional 
 			<attribute name="optional" value="true"/>
-                        //Indica que é derivado do arquivo POM do Maven 
 			<attribute name="maven.pomderived" value="true"/>
-                        //Indica que é um processador de anotações do Maven 
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-       //Configuração do diretório de saída 
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

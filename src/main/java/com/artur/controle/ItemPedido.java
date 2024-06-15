@@ -10,27 +10,23 @@ import com.artur.interfaces.Identificacao;
 // Esta classe é utilizada no construtor de ItemPedido para associar um cliente ao pedido
 import com.artur.pessoas.Cliente;
 
-// Declaração da classe ItemPedido que implementa a interface Identificacao
 public class ItemPedido implements Identificacao {
 
-    // Declaração dos atributos da classe
-    private final String nomePedido;// Nome do pedido
-    private final float precoPedido;// Preço do pedido 
-    private int idPedido;// Identificador único do pedido
-    private final int idItemCardapio;// Identificador do item do cardápio associado ao pedido
-    private int quantidade;// Quantidade do pedido
-    private final int idCliente;// Identificador do cliente associado ao pedido
-    private final String nomeCliente;// Nome do cliente associado ao pedido
+    private final String nomePedido;
+    private final float precoPedido;
+    private int idPedido;
+    private final int idItemCardapio;
+    private int quantidade;
+    private final int idCliente;
+    private final String nomeCliente;
 
-    
-    // Construtor da classe
     public ItemPedido(int idPedido, String nomePedido, int quantidade, float precoPedido, Cliente cliente) {
         this.nomePedido = nomePedido;
         this.precoPedido = precoPedido;
         this.quantidade = quantidade;
         this.idItemCardapio = idPedido;
-        this.idCliente = cliente.getId(); // Obtém o ID do cliente
-        this.nomeCliente = cliente.getNome();// Obtém o nome do cliente
+        this.idCliente = cliente.getId();
+        this.nomeCliente = cliente.getNome();
     }
 
      // Método getter para obter o nome do pedido

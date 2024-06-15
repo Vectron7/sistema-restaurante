@@ -1,35 +1,23 @@
-//aqui está definindo o pacote ao qual a classe 'caixa' pertence. 
 package com.artur.controle;
 
-// Importa a classe GerenciadorCozinha do pacote com.artur.gerenciamento
 import com.artur.gerenciamento.GerenciadorCozinha;
-// Importa a classe GerenciadorDePessoas do pacote com.artur.gerenciamento
 import com.artur.gerenciamento.GerenciadorDePessoas;
-// Importa a interface Listagem do pacote com.artur.interfaces
 import com.artur.interfaces.Listagem;
-// Importa a interface MetodosPagamento do pacote com.artur.interfaces
 import com.artur.interfaces.MetodosPagamento;
-// Importa a classe Cliente do pacote com.artur.pessoas
 import com.artur.pessoas.Cliente;
 
-// Importa a classe ArrayList do pacote java.util
 import java.util.ArrayList;
-// Importa a classe List do pacote java.util
 import java.util.List;
-// Importa a classe Scanner do pacote java.util
 import java.util.Scanner;
 
 public abstract class Caixa implements MetodosPagamento, Listagem {
     
-   // Esta é a lista para armazenar os pedidos pagos
     private final List<ItemPedido> pedidosPagos;
     
-   // Construtor da classe Caixa
     public Caixa(){
         this.pedidosPagos = new ArrayList<>();
     }
     
-   // Método para listar os pedidos de um cliente para pagar
     public void listarPedidosParaPagar(GerenciadorDePessoas pessoa, GerenciadorCozinha cozinha, int idCliente){
         boolean checar = false;
         pessoa.listarCliente(); // Método para listar os clientes
