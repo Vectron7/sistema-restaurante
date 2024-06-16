@@ -1,3 +1,5 @@
+//Este código Java define a classe Pessoa, que possui atributos privados para nome, endereço e telefone, e métodos para acessar e modificar esses atributos.
+
 package com.artur.pessoas;
 
 public class Pessoa {
