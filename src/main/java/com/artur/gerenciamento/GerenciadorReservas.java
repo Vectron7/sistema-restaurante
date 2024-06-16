@@ -1,24 +1,28 @@
-package com.artur.gerenciamento;
-
-import java.util.ArrayList;
-
-import com.artur.controle.Reserva;
-import com.artur.interfaces.Listagem;
-import com.artur.controle.Mesa;
-import com.artur.pessoas.Garcom;
+package com.artur.gerenciamento; // Declaração do pacote 
+ 
+import java.util.ArrayList;  // Importação da classe ArrayList
 
 
+import com.artur.controle.Reserva; // Importação da classe Reserva
+import com.artur.interfaces.Listagem; // Importação da interface Listagem
+import com.artur.controle.Mesa; // Importação da classe Mesa
+import com.artur.pessoas.Garcom; // Importação da classe Garcom
+
+
+// Classe que gerencia as reservas e implementa a interface Listagem
 public class GerenciadorReservas implements Listagem {
 
 
-    private final ArrayList<Reserva> listaReservas;
-    private int ultimoIdReserva = 1;
+    private final ArrayList<Reserva> listaReservas; // Lista de reservas
+    private int ultimoIdReserva = 1; // Contador para o ID das reservas
 
+    // Construtor da classe
     public GerenciadorReservas() {
 
-        this.listaReservas = new ArrayList<>();
+        this.listaReservas = new ArrayList<>(); // Inicializa a lista de reservas
     }
 
+    // Método para escolher um garçom disponível
     public Garcom escolherGarcom(GerenciadorDePessoas pessoa) {
 
         if (pessoa.getListaGarcom() == null || pessoa.getListaGarcom().isEmpty()) {
@@ -26,6 +30,7 @@ public class GerenciadorReservas implements Listagem {
             return null;
         }
 
+         // Percorre a lista de garçons e retorna o primeiro disponível
         for (Garcom g : pessoa.getListaGarcom()) {
             if (!g.isOcupado()) {
                 g.setOcupado(true);
@@ -35,21 +40,24 @@ public class GerenciadorReservas implements Listagem {
             }
         }
 
-        System.out.println("Nao existe garcom disponivel");
+           
+        System.out.println("Nao existe garcom disponivel");  
         return null;
 
     }
 
+    // Método protegido para adicionar uma reserva
     protected void adicionarReserva(Reserva reserva) {
 
-        reserva.setIdReserva(this.ultimoIdReserva++);
-        listaReservas.add(reserva);
+        reserva.setIdReserva(this.ultimoIdReserva++); // Define o ID da reserva e incrementa o contador
+        listaReservas.add(reserva); // Adiciona a reserva à lista
     }
 
+    // Método protegido para cancelar uma reserva
     protected void cancelarReserva(int canIdReserva, ArrayList<Mesa> listaMesas, ArrayList<Garcom> listaGarcom) {
 
         // Procurar pela reserva com o ID especificado
-        Reserva reservaRemover = null;
+        Reserva reservaRemover = null; // Variável para armazenar a reserva a ser removida
         for (Reserva r : listaReservas) {
             if (r.getId() == canIdReserva) {
                 reservaRemover = r;
@@ -57,6 +65,7 @@ public class GerenciadorReservas implements Listagem {
             }
         }
 
+         // Procura pela reserva com o ID especificado
         if (reservaRemover != null) {
             // Atualizar o status do garcom correspondente
             for (Garcom g : listaGarcom) {
@@ -93,6 +102,7 @@ public class GerenciadorReservas implements Listagem {
 
     @Override
     public void listar() {
+         // Lista todas as reservas
 
         for (Reserva reserva : listaReservas) {
             System.out.println("ID: " + reserva.getId() + " | Num. Mesa: " + reserva.getNumMesa() + " | Nome e ID do Gargom: "
@@ -104,6 +114,7 @@ public class GerenciadorReservas implements Listagem {
 
     }
 
+    // Método para obter a lista de reservas
     public ArrayList<Reserva> getListaReservas() {
         return listaReservas;
     }
